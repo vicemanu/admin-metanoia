@@ -1,3 +1,4 @@
+import Conteudo from '../../components/Conteudo'
 import './admin.css'
 
 export default function Admin() {
@@ -24,13 +25,7 @@ export default function Admin() {
                         </label>
                     </div>
 
-                    <div className='form--div conteudo'>
-                        <label htmlFor="">titulo1<input type="text" name="" id="" /></label>
-                        <label htmlFor=""><input type="file" name="" id="" /></label>
-                        <label htmlFor="">citação<textarea name="" id="" cols="30" rows="10"></textarea><input type="text" /></label>
-                        <label htmlFor="">paragrafo 1 <textarea name="" id="" cols="30" rows="10"></textarea></label>
-                    </div>
-
+                    <Conteudo/>
                 </form>
             </div>
         </div>
