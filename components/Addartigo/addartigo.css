@@ -1,0 +1,14 @@
+.add_artigo {
+    width: 90%;
+    height: 3000px;
+    margin: 0 auto;
+    border: 1px solid black;
+    background-color: white;
+}
+
+.add_artigo--dados_basicos {
+    width: 90%;
+    height: 300px;
+    margin: 0 auto;
+    background-color: #b6b6b6;
+}
