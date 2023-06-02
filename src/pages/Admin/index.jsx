@@ -11,9 +11,17 @@ export default function Admin() {
                         <label className='form_principal--title' htmlFor="">
                             Titulo: <input type="text" />
                         </label>
-                        <label htmlFor=""><input type="file" name="" id="" /></label>
-                        <label htmlFor=""><textarea name="" id="" cols="30" rows="10"></textarea></label>
-                        <label htmlFor=""><input type="date" /></label>
+                        <label className='form_principal--img' htmlFor=""> Background: 
+                            <input type="file" name="" id="" />
+                        </label>
+                        <label className='form_principal--descricao' htmlFor="">
+                            <span>Descrição:</span>
+                            <textarea name="" id="" cols="30" rows="10"></textarea>
+                        </label>
+                        <label className='form_principal--date' htmlFor="">
+                            Dia de lançamento:
+                            <input type="date" />
+                        </label>
                     </div>
 
                     <div className='form--div conteudo'>
