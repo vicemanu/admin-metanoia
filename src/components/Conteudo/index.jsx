@@ -15,14 +15,21 @@ export default function Conteudo() {
 
                         <h2>Citações <span>+</span></h2>
                         <div className='conteudo--div'>
-                            <label htmlFor="">
-                                <textarea className='conteudo_div--citacao'  name="" id="" cols="30" rows="10"></textarea>
-                                <input type="text" />
-                            </label>
+                            <label className='conteudo_div--citacao'  htmlFor="">
+                                Citação 1
+                                <textarea  name="" id="" cols="30" rows="10"></textarea>
+                                <span>Autor: <input type="text" /></span>
+                            </label> 
                         </div>
 
+                        <h2>Paragrafos <span>+</span></h2>
+                        <div className='conteudo--div'>
+                            <label className='conteudo_div--paragrafo' htmlFor="">
+                                Paragrafo 1 
+                                <textarea name="" id="" cols="30" rows="10"></textarea>
+                            </label>
+                        </div>
                         
-                        <label htmlFor="">paragrafo 1 <textarea name="" id="" cols="30" rows="10"></textarea></label>
                     </div>
 
         
