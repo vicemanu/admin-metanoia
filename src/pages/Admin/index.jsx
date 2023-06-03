@@ -1,7 +1,20 @@
+import { useState } from 'react'
 import Conteudo from '../../components/Conteudo'
 import './admin.css'
 
+
+
 export default function Admin() {
+
+    const [conteudo, setConteudo] = useState([""])
+
+    function addConteudo(e) {
+        e.preventDefault()
+
+        setConteudo([...conteudo, ""])
+    }
+
+
     return(
         <div className='admin_page'>
             <div className='Menu'></div>
@@ -25,7 +38,13 @@ export default function Admin() {
                         </label>
                     </div>
 
+                    
+
                     <Conteudo/>
+
+                    <button onClick={addConteudo}>Add conteduo extra</button>
+
+                    <button type="submit">Enviar</button>
                 </form>
             </div>
         </div>
