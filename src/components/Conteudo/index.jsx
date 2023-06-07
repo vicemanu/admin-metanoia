@@ -3,10 +3,14 @@ import './conteudo.css'
 
 export default function Conteudo(props) {
 
+    const [titulo, setTitulo] = useState('')
+    const [img, setImg] = useState('')
+    const [citation, setCitation] = useState('')
+    const [paragraph, setParagraph] = useState('')
 
         // console.log(titulo, img, citation, paragraph )
 
-    const [todoConteudo, setTodoConteudo] = useState({titulo: '', img: '', citation: '', paragraph: ''})
+    const [todoConteudo, setTodoConteudo] = useState({titulo, img, citation, paragraph})
     console.log(todoConteudo)
     return(
 
@@ -17,7 +21,8 @@ export default function Conteudo(props) {
                                         Titulo {props.index + 1}: 
                                         <input type="text" name="" id="" 
                                         onChange={e => {
-                                            setTodoConteudo({...todoConteudo, titulo: e.target.value})
+                                            setTitulo(e.target.value)
+                                            setTodoConteudo({titulo, img, citation, paragraph})
                                         }}
                                         />
                                     </label>
@@ -26,7 +31,8 @@ export default function Conteudo(props) {
                                         <label htmlFor="">
                                             <input type="file" name="" id=""
                                             onChange={e => {
-                                                setTodoConteudo({...todoConteudo, img: e.target.value})
+                                                setImg(e.target.value)
+                                                setTodoConteudo({titulo, img, citation, paragraph})
                                             }}
                                              />
                                         </label>
@@ -38,7 +44,8 @@ export default function Conteudo(props) {
                                             Citação 1
                                             <textarea  name="" id="" cols="30" rows="10"
                                             onChange={e => {
-                                                setTodoConteudo({...todoConteudo, citation: e.target.value})
+                                                setCitation(e.target.value)
+                                                setTodoConteudo({titulo, img, citation, paragraph})
                                             }}
                                             >
 
@@ -53,7 +60,8 @@ export default function Conteudo(props) {
                                             Paragrafo 1 
                                             <textarea name="" id="" cols="30" rows="10"
                                             onChange={e => {
-                                                setTodoConteudo({...todoConteudo, paragraph: e.target.value})
+                                                setParagraph(e.target.value)
+                                                setTodoConteudo({titulo, img, citation, paragraph})
                                             }}
                                             >
 
