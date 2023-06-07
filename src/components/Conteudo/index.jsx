@@ -11,10 +11,17 @@ export default function Conteudo(props) {
         // console.log(titulo, img, citation, paragraph )
 
     const [todoConteudo, setTodoConteudo] = useState({titulo, img, citation, paragraph})
-    console.log(todoConteudo)
+
+    function handleChangeConteudo(){
+        props.conteudo[props.index] = todoConteudo
+        props.setConteudo([...props.conteudo])
+        props.setArtigo({...props.artigo, conteudo: props.conteudo })
+    }
+
+
     return(
 
-        <div className='conteudo' >
+        <div className='conteudo' onChange={() => handleChangeConteudo()} >
             
                                     <label className='conteudo--title' htmlFor="">
                                         Titulo {props.index + 1}: 

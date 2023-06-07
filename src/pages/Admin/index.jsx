@@ -18,12 +18,12 @@ export default function Admin() {
     }
 
     console.log(artigo)
-
     return(
         <div className='admin_page'>
             <div className='Menu'></div>
             <div className='admin_page--main'>
-                <form action="" className='main--form'>
+                <form action="" className='main--form' 
+                >
 
                     <div className='form--div form--principal'>
                         <label className='form_principal--title' htmlFor="titulo0">
@@ -58,7 +58,7 @@ export default function Admin() {
                     {
                         conteudo.map((e , index ) => {
                             return (
-                                <Conteudo key={index} index={index} conteudo={e} setConteudo={setConteudo}/>
+                                <Conteudo key={index} index={index} dados={e} conteudo={conteudo}  setConteudo={setConteudo} artigo={artigo} setArtigo={setArtigo}  />
                             )
                         })
                     }
