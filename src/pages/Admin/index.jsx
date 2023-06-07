@@ -8,6 +8,7 @@ export default function Admin() {
 
     const [conteudo, setConteudo] = useState([""])
     const [artigo, setArtigo] = useState({})
+    const [valor, setValor] = useState([])
 
 
     function addConteudo(e) {
@@ -16,7 +17,7 @@ export default function Admin() {
         setConteudo([...conteudo, ""])
     }
 
-    console.log(artigo)
+    console.log(valor)
 
     return(
         <div className='admin_page'>
@@ -56,7 +57,9 @@ export default function Admin() {
 
                     {
                         conteudo.map((e , index ) => {
-                            return <Conteudo index={index}/>
+                            return (
+                                <Conteudo key={index} index={index} conteudo={e} setConteudo={setConteudo}/>
+                            )
                         })
                     }
 
