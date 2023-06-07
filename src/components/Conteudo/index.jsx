@@ -15,7 +15,6 @@ export default function Conteudo(props) {
     return(
 
         <div className='conteudo' >
-
             
                                     <label className='conteudo--title' htmlFor="">
                                         Titulo {props.index + 1}: 
@@ -70,7 +69,7 @@ export default function Conteudo(props) {
                                     </div>
 
                                 
-                                <button onClick={() => {props.setConteudo(['dadada'])}}>Salvar</button> {/** Transformar em um onChange da div completa que atualiza sozinho */}
+                                <button onClick={() => {props.setConteudo(['dadada'])}}>Salvar</button> {/** Transformar em um onChange da div completa que atualiza sozinho e enviar para o objeto da pagina principal */}
                                     
                             </div>
 
