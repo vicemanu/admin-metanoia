@@ -17,7 +17,7 @@ export default function Admin() {
         setConteudo([...conteudo, ""])
     }
 
-    console.log(valor)
+    console.log(artigo)
 
     return(
         <div className='admin_page'>
