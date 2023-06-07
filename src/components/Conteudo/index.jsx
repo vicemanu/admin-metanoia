@@ -4,7 +4,7 @@ import './conteudo.css'
 export default function Conteudo(props) {
 
     const [titulo, setTitulo] = useState('')
-    const [img, setImg] = useState('')
+    const [img, setImg] = useState([""])
     const [citation, setCitation] = useState('')
     const [paragraph, setParagraph] = useState('')
 
@@ -18,6 +18,16 @@ export default function Conteudo(props) {
         props.setArtigo({...props.artigo, conteudo: props.conteudo })
     }
 
+    function addImg(e) {
+        e.preventDefault()
+        setImg([...img, ""])
+    }
+
+    function handleChangeImg(e, index) {
+        img[index] = e.target.value
+        setImg([...img])
+        setTodoConteudo({titulo, img, citation, paragraph})
+    }
 
     return(
 
@@ -32,16 +42,27 @@ export default function Conteudo(props) {
                                         }}
                                         />
                                     </label>
-                                    <h2>Imagens <span>+</span></h2>
+                                    <h2>Imagens 
+                                        <button onClick={addImg}>
+                                            <i class="bi bi-plus-circle"></i>
+                                        </button>
+                                    </h2>
                                     <div className='conteudo--div'>
-                                        <label htmlFor="">
-                                            <input type="file" name="" id=""
-                                            onChange={e => {
-                                                setImg(e.target.value)
-                                                setTodoConteudo({titulo, img, citation, paragraph})
-                                            }}
-                                             />
+                                        {
+                                            img.map((e, index) => {
+                                                return(
+                                                <label key={index} htmlFor={`img${index}`}>
+                                                    <input type="file" name="" id={`img${index}`}
+                                                    onChange={e => { handleChangeImg(e, index)
+                                                    }}
+                                                    />
                                         </label>
+                                                )
+                                            })
+                                        }
+
+
+                                        
                                     </div>
 
                                     <h2>Citações <span>+</span></h2>
