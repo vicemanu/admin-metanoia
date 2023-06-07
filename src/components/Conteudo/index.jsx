@@ -1,10 +1,10 @@
 import './conteudo.css'
 
-export default function Conteudo() {
+export default function Conteudo(props) {
     return(
         <div className='conteudo'>
                         <label className='conteudo--title' htmlFor="">
-                            Titulo1: <input type="text" name="" id="" />
+                            Titulo {props.index + 1}: <input type="text" name="" id="" />
                         </label>
                         <h2>Imagens <span>+</span></h2>
                         <div className='conteudo--div'>
