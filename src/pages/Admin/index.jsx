@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import Conteudo from '../../components/Conteudo'
+import { db } from '../../firebase'
+import { addDoc, collection } from 'firebase/firestore'
 import './admin.css'
 
 
@@ -8,8 +10,6 @@ export default function Admin() {
 
     const [conteudo, setConteudo] = useState([""])
     const [artigo, setArtigo] = useState({})
-    const [valor, setValor] = useState([])
-
 
     function addConteudo(e) {
         e.preventDefault()
@@ -17,7 +17,17 @@ export default function Admin() {
         setConteudo([...conteudo, ""])
     }
 
-    console.log(artigo)
+    async function eviarFireBase(e) {
+        e.preventDefault()
+        await addDoc(collection(db, "artigo"), {
+           conteudo: artigo,
+        }).then(()=> {
+            setArtigo({})
+        }).catch((error)=> {
+            console.log(error)
+        })
+    }
+
     return(
         <div className='admin_page'>
             <div className='Menu'></div>
@@ -65,7 +75,7 @@ export default function Admin() {
 
                     <button onClick={addConteudo}>Add conteduo extra</button>
 
-                    <button type="submit">Enviar</button>
+                    <button onClick={eviarFireBase} type="submit">Enviar</button>
                 </form>
             </div>
         </div>
