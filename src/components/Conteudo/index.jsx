@@ -151,8 +151,7 @@ export default function Conteudo(props) {
                                     </div>
 
                                 
-                                <button onClick={() => {props.setConteudo(['dadada'])}}>Salvar</button> {/** Transformar em um onChange da div completa que atualiza sozinho e enviar para o objeto da pagina principal */}
-                                    
+                                
                             </div>
 
         
