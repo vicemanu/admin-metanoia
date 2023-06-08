@@ -7,10 +7,11 @@ export default function Conteudo(props) {
     const [img, setImg] = useState([""])
     const [citation, setCitation] = useState([""])
     const [paragraph, setParagraph] = useState([""])
+    const [autor, setAutor] = useState([""])
 
         // console.log(titulo, img, citation, paragraph )
 
-    const [todoConteudo, setTodoConteudo] = useState({titulo, img, citation, paragraph})
+    const [todoConteudo, setTodoConteudo] = useState({titulo, img, citation, paragraph, autor})
 
     function handleChangeConteudo(){
         props.conteudo[props.index] = todoConteudo
@@ -26,7 +27,7 @@ export default function Conteudo(props) {
     function handleChangeImg(e, index) {
         img[index] = e.target.value
         setImg([...img])
-        setTodoConteudo({titulo, img, citation, paragraph})
+        setTodoConteudo({titulo, img, citation, paragraph, autor})
     }
 
     function addParagraph(e) {
@@ -37,8 +38,28 @@ export default function Conteudo(props) {
     function handleChangeParagraph(e, index) {
         paragraph[index] = e.target.value
         setParagraph([...paragraph])
-        setTodoConteudo({titulo, img, citation, paragraph})
+        setTodoConteudo({titulo, img, citation, paragraph, autor})
     }
+
+    function addCitation(e) {
+        e.preventDefault()
+        setCitation([...citation, ""])
+        setAutor([...autor, ""])
+    }
+
+    function handleChangeCitation(e, index) {
+        citation[index] = e.target.value
+        setCitation([...citation])
+        setTodoConteudo({titulo, img, citation, paragraph, autor})
+    }
+
+    function handleChangeAutor(e, index) {
+        autor[index] = e.target.value
+        setAutor([...autor])
+        setTodoConteudo({titulo, img, citation, paragraph, autor})
+    }
+
+    
 
     return(
 
@@ -74,20 +95,35 @@ export default function Conteudo(props) {
 
                                     </div>
 
-                                    <h2>Citações <span>+</span></h2>
+                                    <h2>Citações 
+                                        <button onClick={addCitation}>
+                                            <i class="bi bi-plus-circle"></i>
+                                        </button>
+                                    </h2>
                                     <div className='conteudo--div'>
-                                        <label className='conteudo_div--citacao'  htmlFor="">
-                                            Citação 1
-                                            <textarea  name="" id="" cols="30" rows="10"
-                                            onChange={e => {
-                                                setCitation(e.target.value)
-                                                setTodoConteudo({titulo, img, citation, paragraph})
-                                            }}
-                                            >
-
-                                            </textarea>
-                                            <span>Autor: <input type="text" /></span>
-                                        </label> 
+                                        {
+                                            citation.map((e, index)=> {
+                                                return(
+                                                    <label key={index} className='conteudo_div--citacao'  htmlFor="">
+                                                        Citação 1
+                                                        <textarea  name="" id="" cols="30" rows="10"
+                                                        onChange={e => {
+                                                            handleChangeCitation(e, index)
+                                                        }}
+                                                        >
+                                                        </textarea>
+                                                        <span>Autor: 
+                                                            <input type="text"
+                                                            onChange={e => {
+                                                                handleChangeAutor(e, index)
+                                                            }}
+                                                             />
+                                                        </span>
+                                                </label> 
+                                                )
+                                            })
+                                        }
+                                        
                                     </div>
 
                                     <h2>Paragrafos 
