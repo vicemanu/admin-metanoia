@@ -6,7 +6,7 @@ export default function Conteudo(props) {
     const [titulo, setTitulo] = useState('')
     const [img, setImg] = useState([""])
     const [citation, setCitation] = useState([""])
-    const [paragraph, setParagraph] = useState('')
+    const [paragraph, setParagraph] = useState([""])
 
         // console.log(titulo, img, citation, paragraph )
 
@@ -90,19 +90,28 @@ export default function Conteudo(props) {
                                         </label> 
                                     </div>
 
-                                    <h2>Paragrafos <span>+</span></h2>
+                                    <h2>Paragrafos 
+                                        <button onClick={addParagraph}>
+                                            <i class="bi bi-plus-circle"></i>
+                                        </button>
+                                        
+                                    </h2>
                                     <div className='conteudo--div'>
-                                        <label className='conteudo_div--paragrafo' htmlFor="">
-                                            Paragrafo 1 
-                                            <textarea name="" id="" cols="30" rows="10"
-                                            onChange={e => {
-                                                setParagraph(e.target.value)
-                                                setTodoConteudo({titulo, img, citation, paragraph})
-                                            }}
-                                            >
+                                        {
+                                            paragraph.map((e, index) => {
+                                                return(
+                                                    <label key={index} className='conteudo_div--paragrafo' htmlFor="">
+                                                        Paragrafo {index + 1} 
+                                                    <textarea name="" id="" cols="30" rows="10"
+                                                    onChange={e => {handleChangeParagraph(e, index)}}
+                                                    >
 
-                                            </textarea>
-                                        </label>
+                                                    </textarea>
+                                                </label>  
+                                                )      
+                                            })
+                                        }
+                                        
                                     </div>
 
                                 
