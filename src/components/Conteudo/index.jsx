@@ -5,7 +5,7 @@ export default function Conteudo(props) {
 
     const [titulo, setTitulo] = useState('')
     const [img, setImg] = useState([""])
-    const [citation, setCitation] = useState('')
+    const [citation, setCitation] = useState([""])
     const [paragraph, setParagraph] = useState('')
 
         // console.log(titulo, img, citation, paragraph )
@@ -26,6 +26,17 @@ export default function Conteudo(props) {
     function handleChangeImg(e, index) {
         img[index] = e.target.value
         setImg([...img])
+        setTodoConteudo({titulo, img, citation, paragraph})
+    }
+
+    function addParagraph(e) {
+        e.preventDefault()
+        setParagraph([...paragraph, ""])
+    }
+
+    function handleChangeParagraph(e, index) {
+        paragraph[index] = e.target.value
+        setParagraph([...paragraph])
         setTodoConteudo({titulo, img, citation, paragraph})
     }
 
@@ -61,8 +72,6 @@ export default function Conteudo(props) {
                                             })
                                         }
 
-
-                                        
                                     </div>
 
                                     <h2>Citações <span>+</span></h2>
