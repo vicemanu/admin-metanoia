@@ -24,6 +24,7 @@ export default function Admin() {
            conteudo: artigo,
         }).then(()=> {
             setArtigo({title0: "", img0: "", description: "", date: "", conteudo: ""})
+            setConteudo([])
         }).catch((error)=> {
             console.log(error)
         })
@@ -75,7 +76,7 @@ export default function Admin() {
                     {
                         conteudo.map((e , index ) => {
                             return (
-                                <Conteudo key={index} index={index} dados={e} conteudo={conteudo}  setConteudo={setConteudo} artigo={artigo} setArtigo={setArtigo}  />
+                                <Conteudo key={index} index={index} dados={e} conteudo={conteudo}  setConteudo={setConteudo} artigo={artigo} setArtigo={setArtigo}/>
                             )
                         })
                     }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './conteudo.css'
 
 export default function Conteudo(props) {
@@ -11,7 +11,7 @@ export default function Conteudo(props) {
 
         // console.log(titulo, img, citation, paragraph )
 
-    const [todoConteudo, setTodoConteudo] = useState({titulo, img, citation, paragraph, autor})
+    const [todoConteudo, setTodoConteudo] = useState({titulo: titulo, img: img, citation: citation, paragraph: paragraph, autor: autor})
 
     function handleChangeConteudo(){
         props.conteudo[props.index] = todoConteudo
@@ -58,16 +58,20 @@ export default function Conteudo(props) {
         setAutor([...autor])
         setTodoConteudo({titulo, img, citation, paragraph, autor})
     }
-
     
 
     return(
 
-        <div className='conteudo' onChange={() => handleChangeConteudo()} >
+        <div className='conteudo' onChange={() => {
+            handleChangeConteudo()
+            aliseReset()
+        }
+        } >
             
                                     <label className='conteudo--title' htmlFor="">
                                         Titulo {props.index + 1}: 
                                         <input type="text" name="" id="" 
+                                        value={titulo}
                                         onChange={e => {
                                             setTitulo(e.target.value)
                                             setTodoConteudo({titulo, img, citation, paragraph})
