@@ -33,6 +33,7 @@
 
 body {
     background-color: var(--cor5);
+    height: 100vh;
 }
 
 button {

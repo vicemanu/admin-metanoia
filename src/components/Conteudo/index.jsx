@@ -11,94 +11,98 @@ export default function Conteudo(props) {
 
         // console.log(titulo, img, citation, paragraph )
 
-    const [todoConteudo, setTodoConteudo] = useState({titulo: titulo, img: img, citation: citation, paragraph: paragraph, autor: autor})
 
-    function handleChangeConteudo(){
-        props.conteudo[props.index] = todoConteudo
-        props.setConteudo([...props.conteudo])
-        props.setArtigo({...props.artigo, conteudo: props.conteudo })
-    }
+    // const [todoConteudo, setTodoConteudo] = useState({titulo: titulo, img: img, citation: citation, paragraph: paragraph, autor: autor})
+
+    // function handleChangeConteudo(){
+    //     props.conteudo[props.index] = todoConteudo
+    //     props.setConteudo([...props.conteudo])
+    //     props.setArtigo({...props.artigo, conteudo: props.conteudo })
+    // }
 
     function addImg(e) {
         e.preventDefault()
-        setImg([...img, ""])
+        props.conteudo[props.index].img = [...props.conteudo[props.index].img, ""]
+        props.setConteudo([...props.conteudo])
     }
 
     function handleChangeImg(e, index) {
-        img[index] = e.target.value
-        setImg([...img])
-        setTodoConteudo({titulo, img, citation, paragraph, autor})
+        props.conteudo[props.index].img[index] = e.target.value
+        props.setConteudo([...props.conteudo])
+
+        console.log(props.conteudo)
     }
 
-    function addParagraph(e) {
-        e.preventDefault()
-        setParagraph([...paragraph, ""])
-    }
+    // function addParagraph(e) {
+    //     e.preventDefault()
+    //     setParagraph([...paragraph, ""])
+    // }
 
-    function handleChangeParagraph(e, index) {
-        paragraph[index] = e.target.value
-        setParagraph([...paragraph])
-        setTodoConteudo({titulo, img, citation, paragraph, autor})
-    }
+    // function handleChangeParagraph(e, index) {
+    //     paragraph[index] = e.target.value
+    //     setParagraph([...paragraph])
+    //     setTodoConteudo({titulo, img, citation, paragraph, autor})
+    // }
 
-    function addCitation(e) {
-        e.preventDefault()
-        setCitation([...citation, ""])
-        setAutor([...autor, ""])
-    }
+    // function addCitation(e) {
+    //     e.preventDefault()
+    //     setCitation([...citation, ""])
+    //     setAutor([...autor, ""])
+    // }
 
-    function handleChangeCitation(e, index) {
-        citation[index] = e.target.value
-        setCitation([...citation])
-        setTodoConteudo({titulo, img, citation, paragraph, autor})
-    }
+    // function handleChangeCitation(e, index) {
+    //     citation[index] = e.target.value
+    //     setCitation([...citation])
+    //     setTodoConteudo({titulo, img, citation, paragraph, autor})
+    // }
 
-    function handleChangeAutor(e, index) {
-        autor[index] = e.target.value
-        setAutor([...autor])
-        setTodoConteudo({titulo, img, citation, paragraph, autor})
-    }
+    // function handleChangeAutor(e, index) {
+    //     autor[index] = e.target.value
+    //     setAutor([...autor])
+    //     setTodoConteudo({titulo, img, citation, paragraph, autor})
+    // }
     
+
 
     return(
 
-        <div className='conteudo' onChange={() => {
-            handleChangeConteudo()
-            aliseReset()
-        }
-        } >
+        <div className='conteudo'>
             
-                                    <label className='conteudo--title' htmlFor="">
-                                        Titulo {props.index + 1}: 
-                                        <input type="text" name="" id="" 
-                                        value={titulo}
-                                        onChange={e => {
-                                            setTitulo(e.target.value)
-                                            setTodoConteudo({titulo, img, citation, paragraph})
-                                        }}
-                                        />
-                                    </label>
-                                    <h2>Imagens 
-                                        <button onClick={addImg}>
-                                            <i class="bi bi-plus-circle"></i>
-                                        </button>
-                                    </h2>
-                                    <div className='conteudo--div'>
-                                        {
-                                            img.map((e, index) => {
-                                                return(
-                                                <label key={index} htmlFor={`img${index}`}>
-                                                    <input type="file" name="" id={`img${index}`}
-                                                    onChange={e => { handleChangeImg(e, index)
-                                                    }}
-                                                    />
-                                        </label>
-                                                )
-                                            })
-                                        }
+            <label className='conteudo--title' htmlFor="">
+                Titulo {props.index + 1}: 
+                <input type="text" name="" id="" 
+                value={props.dados.title}
+                onChange={e => {
+                    props.conteudo[props.index].title = e.target.value
+                    props.setConteudo([...props.conteudo])
+                }}
+                />
+            </label>
+            <h2>Imagens 
+                <button onClick={addImg}>
+                    <i className="bi bi-plus-circle"></i>
+                </button>
+            </h2>
+            <div className='conteudo--div'>
+                {
+                    props.conteudo[props.index].img.map((e, index) => {
+                        return(
+                            <label key={index} htmlFor={`img${index}`}>
+                                <input type="file" 
+                                    name="" 
+                                    id={`img${index}`}
+                                    value={props.dados.img[index]}
+                                    onChange={e => {
+                                        handleChangeImg(e, index)
+                                    }}
+                                />
+                            </label>
+                        )
+                    })
+                }
 
-                                    </div>
-
+            </div>
+{/* 
                                     <h2>Citações 
                                         <button onClick={addCitation}>
                                             <i class="bi bi-plus-circle"></i>
@@ -152,9 +156,9 @@ export default function Conteudo(props) {
                                             })
                                         }
                                         
-                                    </div>
+                                    </div> */}
 
-                                
+                                 
                                 
                             </div>
 

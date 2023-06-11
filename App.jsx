@@ -1,10 +1,12 @@
 import './app.css'
 import Admin from './pages/Admin'
+import Teste from './pages/Teste'
 
 function App() {
   return(
     <>
-      <Admin/>
+      <Teste/>
+      {/* <Admin/> */}
     </>
   )
 }
