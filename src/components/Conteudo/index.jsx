@@ -111,6 +111,7 @@ export default function Conteudo(props) {
             </div>
 
             {/* Citações e todo o sitema de citações */}
+            {/* ir lendo o codigo da citação para ver o que falta, mas o que realmente falta  é ajeitar os handles da citaçaõ e do autor e mudar o span para um label e ver o que dar */}
 
             <h2>Citações 
                 <button onClick={addCitation}>
