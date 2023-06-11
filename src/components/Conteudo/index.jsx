@@ -29,8 +29,13 @@ export default function Conteudo(props) {
     function handleChangeImg(e, index) {
         props.conteudo[props.index].img[index] = e.target.value
         props.setConteudo([...props.conteudo])
+    }
 
-        console.log(props.conteudo)
+    function addCitation(e) {
+        e.preventDefault()
+        props.conteudo[props.index].citation = [...props.conteudo[props.index].citation, ""]
+        props.conteudo[props.index].author = [...props.conteudo[props.index].author, ""]
+        props.setConteudo([...props.conteudo])
     }
 
     // function addParagraph(e) {
@@ -44,11 +49,7 @@ export default function Conteudo(props) {
     //     setTodoConteudo({titulo, img, citation, paragraph, autor})
     // }
 
-    // function addCitation(e) {
-    //     e.preventDefault()
-    //     setCitation([...citation, ""])
-    //     setAutor([...autor, ""])
-    // }
+    
 
     // function handleChangeCitation(e, index) {
     //     citation[index] = e.target.value
@@ -67,6 +68,8 @@ export default function Conteudo(props) {
     return(
 
         <div className='conteudo'>
+
+            {/* Titulo do componente de conteudo */}
             
             <label className='conteudo--title' htmlFor="">
                 Titulo {props.index + 1}: 
@@ -78,6 +81,10 @@ export default function Conteudo(props) {
                 }}
                 />
             </label>
+
+
+            {/* Sistema de carregam de imagens do componente de conteudo */}
+            {/* Retornar no campo img, fazer sistema de envio como dados de imagem e não do file do meu pc */}
             <h2>Imagens 
                 <button onClick={addImg}>
                     <i className="bi bi-plus-circle"></i>
@@ -102,38 +109,39 @@ export default function Conteudo(props) {
                 }
 
             </div>
-{/* 
-                                    <h2>Citações 
-                                        <button onClick={addCitation}>
-                                            <i class="bi bi-plus-circle"></i>
-                                        </button>
-                                    </h2>
-                                    <div className='conteudo--div'>
-                                        {
-                                            citation.map((e, index)=> {
-                                                return(
-                                                    <label key={index} className='conteudo_div--citacao'  htmlFor="">
-                                                        Citação 1
-                                                        <textarea  name="" id="" cols="30" rows="10"
-                                                        onChange={e => {
-                                                            handleChangeCitation(e, index)
-                                                        }}
-                                                        >
-                                                        </textarea>
-                                                        <span>Autor: 
-                                                            <input type="text"
-                                                            onChange={e => {
-                                                                handleChangeAutor(e, index)
-                                                            }}
-                                                             />
-                                                        </span>
-                                                </label> 
-                                                )
-                                            })
-                                        }
+
+            {/* Citações e todo o sitema de citações */}
+
+            <h2>Citações 
+                <button onClick={addCitation}>
+                    <i className="bi bi-plus-circle"></i>
+                </button>
+            </h2>
+            <div className='conteudo--div'>
+                {
+                    props.conteudo[props.index].citation.map((e, index)=> {
+                        return(
+                            <label key={index} className='conteudo_div--citacao'  htmlFor={`citation${index}`}>
+                                Citação 1
+                                <textarea  name="" id={`citation${index}`} cols="30" rows="10"
+                                    onChange={e => {
+                                        handleChangeCitation(e, index)
+                                    }}
+                                ></textarea>
+                                <span>Autor: 
+                                    <input type="text"
+                                        onChange={e => {
+                                            handleChangeAutor(e, index)
+                                        }}
+                                    />
+                                </span>
+                            </label> 
+                        )
+                    })
+                }
                                         
                                     </div>
-
+{/* 
                                     <h2>Paragrafos 
                                         <button onClick={addParagraph}>
                                             <i class="bi bi-plus-circle"></i>
