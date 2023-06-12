@@ -10,7 +10,7 @@ export default function Conteudo(props) {
     }
 
     function handleChangeImg(e, index) {
-        let file = e.target[index]?.files[0]
+        let file = e.target?.files[0]
         if(!file) return;
         props.conteudo[props.index].img[index] = file
         props.setConteudo([...props.conteudo])

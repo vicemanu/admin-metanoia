@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import Conteudo from '../../components/Conteudo'
-import { db } from '../../firebase'
+import { db, storage } from '../../firebase'
 import { addDoc, collection } from 'firebase/firestore'
 import './admin.css'
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
 
 
 
@@ -10,11 +11,12 @@ export default function Admin() {
 
     const [conteudo, setConteudo] = useState([{title:"", img: [""], citation: [""], paragraph: [""], 
     author: [""] }])
-    const [artigo, setArtigo] = useState({ title: "", img: "", description: "", date: "", conteudo: ""})
+    const [artigo, setArtigo] = useState({ title: "", img: [""], description: "", date: "", conteudo: ""})
+    const [progressTitle, setProgressTitle] = useState(0)
 
     function addConteudo(e) {
         e.preventDefault()
-        setConteudo([...conteudo, {title:"", img: [""], citation: [""], paragraph: [""], 
+        setConteudo([...conteudo, {title:"", img: [], citation: [""], paragraph: [""], 
         author: [""] }])
     }
 
@@ -23,7 +25,29 @@ export default function Admin() {
         e.preventDefault()
 
         setArtigo({...artigo, conteudo: conteudo})
-        console.log(artigo)
+
+        const storageRefTitle = ref(storage, `images/${artigo.img.name}`)
+        const uploadTaskTitle = uploadBytesResumable(storageRefTitle, artigo.img)
+
+        uploadTaskTitle.on(
+            "state_changed",
+            snapshot => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                setProgressTitle(progress)
+            },
+            error => {
+                alert(error)
+            },
+            () => {
+                getDownloadURL(uploadTaskTitle.snapshot.ref).then(url => {
+                    setArtigo({...artigo, img: url})
+                })
+            }
+
+           
+        )
+
+
         // await addDoc(collection(db, "artigo"), {
         //     title: artigo.title,
         //     img: artigo.img,
@@ -59,10 +83,12 @@ export default function Admin() {
                         </label>
                         <label className='form_principal--img' htmlFor="background"> Background: 
                             <input type="file" name="" id="background" 
-                            value={artigo.img}
-                            onChange={
-                                e => setArtigo({...artigo, img: e.target.value})
-                                }  />
+                                value={artigo.img.value}
+                                onChange={e => {
+                                    setArtigo({...artigo, img: e.target.files[0]})
+                                    }
+                                }  
+                            />
                         </label>
                         <label className='form_principal--descricao' htmlFor="descrição">
                             <span>Descrição:</span>
