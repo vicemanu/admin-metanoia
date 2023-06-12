@@ -46,26 +46,20 @@ export default function Conteudo(props) {
     function handleChangeAutor(e, index) {
         props.conteudo[props.index].author[index] = e.target.value
         props.setConteudo([...props.conteudo])
-        console.log(props.conteudo)
     }
 
-    // function addParagraph(e) {
-    //     e.preventDefault()
-    //     setParagraph([...paragraph, ""])
-    // }
+    function addParagraph(e) {
+        e.preventDefault()
+        props.conteudo[props.index].paragraph = [...props.conteudo[props.index].paragraph, ""]
+        props.setConteudo([...props.conteudo])
 
-    // function handleChangeParagraph(e, index) {
-    //     paragraph[index] = e.target.value
-    //     setParagraph([...paragraph])
-    //     setTodoConteudo({titulo, img, citation, paragraph, autor})
-    // }
+    }
 
-    
-
-
-
-    
-    
+    function handleChangeParagraph(e, index) {
+        props.conteudo[props.index].paragraph[index] = e.target.value
+        props.setConteudo([...props.conteudo])
+        console.log(props.conteudo)
+    }
 
 
     return(
@@ -146,36 +140,37 @@ export default function Conteudo(props) {
                         )
                     })
                 }
-                                        
-                                    </div>
-{/* 
-                                    <h2>Paragrafos 
-                                        <button onClick={addParagraph}>
-                                            <i class="bi bi-plus-circle"></i>
-                                        </button>
-                                        
-                                    </h2>
-                                    <div className='conteudo--div'>
-                                        {
-                                            paragraph.map((e, index) => {
-                                                return(
-                                                    <label key={index} className='conteudo_div--paragrafo' htmlFor="">
-                                                        Paragrafo {index + 1} 
-                                                    <textarea name="" id="" cols="30" rows="10"
-                                                    onChange={e => {handleChangeParagraph(e, index)}}
-                                                    >
+            </div>
 
-                                                    </textarea>
-                                                </label>  
-                                                )      
-                                            })
-                                        }
-                                        
-                                    </div> */}
+            {/* Paragrafos de conteudo */}
+
+
+            <h2>Paragrafos 
+                <button onClick={addParagraph}>
+                    <i className="bi bi-plus-circle"></i>
+                </button>
+            </h2>
+            <div className='conteudo--div'>
+                {
+                    props.conteudo[props.index].paragraph.map((e, index) => {
+                        return(
+                            <label key={index} className='conteudo_div--paragrafo' htmlFor={`paragraph${index}`}>
+                                Paragrafo {index + 1} 
+                                <textarea 
+                                    name="" 
+                                    id={`paragraph${index}`} 
+                                    cols="30" rows="10"
+                                    onChange={e => {handleChangeParagraph(e, index)}}
+                                ></textarea>
+                            </label>  
+                        )      
+                    })
+                }
+            </div> 
 
                                  
                                 
-                            </div>
+        </div>
 
         
     )
