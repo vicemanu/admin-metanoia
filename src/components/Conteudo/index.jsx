@@ -10,7 +10,9 @@ export default function Conteudo(props) {
     }
 
     function handleChangeImg(e, index) {
-        props.conteudo[props.index].img[index] = e.target.value
+        let file = e.target[index]?.files[0]
+        if(!file) return;
+        props.conteudo[props.index].img[index] = file
         props.setConteudo([...props.conteudo])
     }
 
@@ -78,7 +80,7 @@ export default function Conteudo(props) {
                                 <input type="file" 
                                     name="" 
                                     id={`img${index}`}
-                                    value={props.dados.img[index]}
+                                    value={props.dados.img[index].value}
                                     onChange={e => {
                                         handleChangeImg(e, index)
                                     }}

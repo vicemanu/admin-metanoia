@@ -23,20 +23,20 @@ export default function Admin() {
         e.preventDefault()
 
         setArtigo({...artigo, conteudo: conteudo})
-
-        await addDoc(collection(db, "artigo"), {
-            title: artigo.title,
-            img: artigo.img,
-            description: artigo.description,
-            date: artigo.date,
-            conteudo: artigo.conteudo,
-        }).then(()=> {
-            setArtigo({ title: "", img: "", description: "", date: "", conteudo: ""})
-            setConteudo([{title:"", img: [""], citation: [""], paragraph: [""], 
-            author: [""] }])
-        }).catch((error)=> {
-            console.log(error)
-        })
+        console.log(artigo)
+        // await addDoc(collection(db, "artigo"), {
+        //     title: artigo.title,
+        //     img: artigo.img,
+        //     description: artigo.description,
+        //     date: artigo.date,
+        //     conteudo: artigo.conteudo,
+        // }).then(()=> {
+        //     setArtigo({ title: "", img: "", description: "", date: "", conteudo: ""})
+        //     setConteudo([{title:"", img: [""], citation: [""], paragraph: [""], 
+        //     author: [""] }])
+        // }).catch((error)=> {
+        //     console.log(error)
+        // })
     }
 
 
