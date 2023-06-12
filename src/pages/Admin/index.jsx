@@ -12,7 +12,7 @@ export default function Admin() {
     const [conteudo, setConteudo] = useState([{title:"", img: [""], citation: [""], paragraph: [""], 
     author: [""] }])
     const [artigo, setArtigo] = useState({ title: "", img: [""], description: "", date: "", conteudo: ""})
-    const [progressTitle, setProgressTitle] = useState(0)
+    const [progressTotal, setProgressTotal] = useState([])
 
     function addConteudo(e) {
         e.preventDefault()
@@ -33,7 +33,7 @@ export default function Admin() {
             "state_changed",
             snapshot => {
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                setProgressTitle(progress)
+                setProgressTotal(...progressTotal, progress)
             },
             error => {
                 alert(error)
@@ -43,9 +43,34 @@ export default function Admin() {
                     setArtigo({...artigo, img: url})
                 })
             }
-
-           
+   
         )
+
+        for (let i = 0; i <= conteudo.length ; i++) {
+            for(let e = 0; e <= conteudo[i]?.img.length; e++) {
+                const storageRefCont = ref(storage, `images/${conteudo[i].img[e]}`)
+                const uploadTaskCont = uploadBytesResumable(storageRefCont, conteudo[i].img[e])
+
+                uploadTaskCont.on(
+                    "state_changed",
+                    snapshot => {
+                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                        setProgressTotal(...progressTotal, progress)
+                    },
+                    error => {
+                        alert(error)
+                    },
+                    () => {
+                        getDownloadURL(uploadTaskCont.snapshot.ref).then(url => {
+                            conteudo[i].img[e] = url
+                            setConteudo([...conteudo])
+                            console.log(conteudo)
+                        })
+                    }
+           
+                )
+            }
+        }
 
 
         // await addDoc(collection(db, "artigo"), {
