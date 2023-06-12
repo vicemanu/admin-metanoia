@@ -3,22 +3,6 @@ import './conteudo.css'
 
 export default function Conteudo(props) {
 
-    const [titulo, setTitulo] = useState('')
-    const [img, setImg] = useState([""])
-    const [citation, setCitation] = useState([""])
-    const [paragraph, setParagraph] = useState([""])
-    const [autor, setAutor] = useState([""])
-
-        // console.log(titulo, img, citation, paragraph )
-
-
-    // const [todoConteudo, setTodoConteudo] = useState({titulo: titulo, img: img, citation: citation, paragraph: paragraph, autor: autor})
-
-    // function handleChangeConteudo(){
-    //     props.conteudo[props.index] = todoConteudo
-    //     props.setConteudo([...props.conteudo])
-    //     props.setArtigo({...props.artigo, conteudo: props.conteudo })
-    // }
 
     function addImg(e) {
         e.preventDefault()
