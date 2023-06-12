@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import './conteudo.css'
 
 export default function Conteudo(props) {
