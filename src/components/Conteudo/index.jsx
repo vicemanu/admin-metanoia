@@ -38,6 +38,17 @@ export default function Conteudo(props) {
         props.setConteudo([...props.conteudo])
     }
 
+    function handleChangeCitation(e, index) {
+        props.conteudo[props.index].citation[index] = e.target.value
+        props.setConteudo([...props.conteudo])
+    }
+
+    function handleChangeAutor(e, index) {
+        props.conteudo[props.index].author[index] = e.target.value
+        props.setConteudo([...props.conteudo])
+        console.log(props.conteudo)
+    }
+
     // function addParagraph(e) {
     //     e.preventDefault()
     //     setParagraph([...paragraph, ""])
@@ -51,17 +62,9 @@ export default function Conteudo(props) {
 
     
 
-    // function handleChangeCitation(e, index) {
-    //     citation[index] = e.target.value
-    //     setCitation([...citation])
-    //     setTodoConteudo({titulo, img, citation, paragraph, autor})
-    // }
 
-    // function handleChangeAutor(e, index) {
-    //     autor[index] = e.target.value
-    //     setAutor([...autor])
-    //     setTodoConteudo({titulo, img, citation, paragraph, autor})
-    // }
+
+    
     
 
 
@@ -111,7 +114,6 @@ export default function Conteudo(props) {
             </div>
 
             {/* Citações e todo o sitema de citações */}
-            {/* ir lendo o codigo da citação para ver o que falta, mas o que realmente falta  é ajeitar os handles da citaçaõ e do autor e mudar o span para um label e ver o que dar */}
 
             <h2>Citações 
                 <button onClick={addCitation}>
@@ -123,19 +125,23 @@ export default function Conteudo(props) {
                     props.conteudo[props.index].citation.map((e, index)=> {
                         return(
                             <label key={index} className='conteudo_div--citacao'  htmlFor={`citation${index}`}>
-                                Citação 1
-                                <textarea  name="" id={`citation${index}`} cols="30" rows="10"
+                                Citação {index + 1}
+                                <textarea  name="" 
+                                    id={`citation${index}`} 
+                                    cols="30" rows="10"
+                                    value={props.dados.citation[index]}
                                     onChange={e => {
                                         handleChangeCitation(e, index)
                                     }}
                                 ></textarea>
-                                <span>Autor: 
+                                <label>Autor: 
                                     <input type="text"
+                                        value={props.dados.author[index]}
                                         onChange={e => {
                                             handleChangeAutor(e, index)
                                         }}
                                     />
-                                </span>
+                                </label>
                             </label> 
                         )
                     })
