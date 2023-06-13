@@ -14,6 +14,7 @@ export default function Conteudo(props) {
         if(!file) return;
         props.conteudo[props.index].img[index] = file
         props.setConteudo([...props.conteudo])
+        console.log(e)
     }
 
     function addCitation(e) {
@@ -80,7 +81,7 @@ export default function Conteudo(props) {
                                 <input type="file" 
                                     name="" 
                                     id={`img${index}`}
-                                    value={props.dados.img[index].value}
+                                    value={!props.dados.img[index] == "" ? props.dados.img[index].value : ""}
                                     onChange={e => {
                                         handleChangeImg(e, index)
                                     }}
@@ -145,6 +146,7 @@ export default function Conteudo(props) {
                                     name="" 
                                     id={`paragraph${index}`} 
                                     cols="30" rows="10"
+                                    value={props.dados.paragraph[index]}
                                     onChange={e => {handleChangeParagraph(e, index)}}
                                 ></textarea>
                             </label>  

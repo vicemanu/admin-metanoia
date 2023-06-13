@@ -12,7 +12,7 @@ export default function Admin() {
     const [conteudo, setConteudo] = useState([{title:"", img: [""], citation: [""], paragraph: [""], 
     author: [""] }])
     const [artigo, setArtigo] = useState({ title: "", img: [""], description: "", date: "", conteudo: ""})
-    const [progressTotal, setProgressTotal] = useState([])
+    const [progressTotal, setProgressTotal] = useState(true)
 
     function addConteudo(e) {
         e.preventDefault()
@@ -20,12 +20,9 @@ export default function Admin() {
         author: [""] }])
     }
 
+    function enviarImagens() {
 
-    async function eviarFireBase(e) {
-        e.preventDefault()
-
-        setArtigo({...artigo, conteudo: conteudo})
-
+        if(!artigo.img === [""]) {
         const storageRefTitle = ref(storage, `images/${artigo.img.name}`)
         const uploadTaskTitle = uploadBytesResumable(storageRefTitle, artigo.img)
 
@@ -33,7 +30,13 @@ export default function Admin() {
             "state_changed",
             snapshot => {
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                setProgressTotal(...progressTotal, progress)
+                if(progress == 100) {
+                    setProgressTotal(false)
+                } else {
+                    setProgressTotal(true)
+
+                }
+                
             },
             error => {
                 alert(error)
@@ -41,21 +44,30 @@ export default function Admin() {
             () => {
                 getDownloadURL(uploadTaskTitle.snapshot.ref).then(url => {
                     setArtigo({...artigo, img: url})
+
                 })
             }
    
         )
+        }
+        
 
-        for (let i = 0; i <= conteudo.length ; i++) {
-            for(let e = 0; e <= conteudo[i]?.img.length; e++) {
-                const storageRefCont = ref(storage, `images/${conteudo[i].img[e]}`)
+        for (let i = 0; i < conteudo.length ; i++) {
+            for(let e = 0; e < conteudo[i]?.img.length; e++) {
+
+                if(!conteudo[i]?.img[e] == "") {
+                    const storageRefCont = ref(storage, `images/${conteudo[i].img[e]}`)
                 const uploadTaskCont = uploadBytesResumable(storageRefCont, conteudo[i].img[e])
 
                 uploadTaskCont.on(
                     "state_changed",
                     snapshot => {
                         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                        setProgressTotal(...progressTotal, progress)
+                        if(progress == 100) {
+                            setProgressTotal(false)
+                        } else {
+                            setProgressTotal(true)
+                        }
                     },
                     error => {
                         alert(error)
@@ -64,28 +76,36 @@ export default function Admin() {
                         getDownloadURL(uploadTaskCont.snapshot.ref).then(url => {
                             conteudo[i].img[e] = url
                             setConteudo([...conteudo])
-                            console.log(conteudo)
                         })
                     }
            
                 )
+                } 
+
+                
             }
+
         }
+    }
 
 
-        // await addDoc(collection(db, "artigo"), {
-        //     title: artigo.title,
-        //     img: artigo.img,
-        //     description: artigo.description,
-        //     date: artigo.date,
-        //     conteudo: artigo.conteudo,
-        // }).then(()=> {
-        //     setArtigo({ title: "", img: "", description: "", date: "", conteudo: ""})
-        //     setConteudo([{title:"", img: [""], citation: [""], paragraph: [""], 
-        //     author: [""] }])
-        // }).catch((error)=> {
-        //     console.log(error)
-        // })
+    async function eviarFireBase(e) {
+        e.preventDefault()
+
+        await addDoc(collection(db, "artigo"), {
+            title: artigo.title,
+            img: artigo.img,
+            description: artigo.description,
+            date: artigo.date,
+            conteudo: conteudo,
+        }).then(()=> {
+            setArtigo({ title: "", img: "", description: "", date: "", conteudo: ""})
+            setConteudo([{title:"", img: [""], citation: [""], paragraph: [""], 
+            author: [""] }])
+        }).catch((error)=> {
+            console.log(error)
+        })
+        
     }
 
 
@@ -146,10 +166,14 @@ export default function Admin() {
                     }
 
                     <button onClick={addConteudo}>Add conteduo extra</button>
-
-                    <button type="submit">Enviar</button>
+                    <button onClick={enviarImagens} type='button'> Upload Imagens</button>
+                    <button disabled={progressTotal} type="submit">Enviar</button>
+                    
                 </form>
             </div>
+            <button onClick={e => {
+                        console.log(progressTotal)
+                    }}> ver valor</button>
         </div>
     )
 }
