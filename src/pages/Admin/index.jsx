@@ -51,13 +51,21 @@ export default function Admin() {
         )
         }
         
+        conteudo.map((e, index1)=> {
+            e.map((e, index2)=> {
+                if(!e?.img[index2] == "") {
+
+                }
+            })
+        })
+            
 
         for (let i = 0; i < conteudo.length ; i++) {
             for(let e = 0; e < conteudo[i]?.img.length; e++) {
 
                 if(!conteudo[i]?.img[e] == "") {
-                    const storageRefCont = ref(storage, `images/${conteudo[i].img[e]}`)
-                const uploadTaskCont = uploadBytesResumable(storageRefCont, conteudo[i].img[e])
+                let storageRefCont = ref(storage, `images/${conteudo[i].img[e]}`)
+                let uploadTaskCont = uploadBytesResumable(storageRefCont, conteudo[i].img[e])
 
                 uploadTaskCont.on(
                     "state_changed",
@@ -102,6 +110,7 @@ export default function Admin() {
             setArtigo({ title: "", img: "", description: "", date: "", conteudo: ""})
             setConteudo([{title:"", img: [""], citation: [""], paragraph: [""], 
             author: [""] }])
+            setProgressTotal(true)
         }).catch((error)=> {
             console.log(error)
         })
