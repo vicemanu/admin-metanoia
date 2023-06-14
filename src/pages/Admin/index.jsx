@@ -12,7 +12,7 @@ export default function Admin() {
     const [conteudo, setConteudo] = useState([{title:"", img: [""], citation: [""], paragraph: [""], 
     author: [""] }])
     const [artigo, setArtigo] = useState({ title: "", img: [""], description: "", date: "", conteudo: ""})
-    const [progressTotal, setProgressTotal] = useState(true)
+    const [progressTotal, setProgressTotal] = useState(0)
 
     function addConteudo(e) {
         e.preventDefault()
@@ -22,26 +22,15 @@ export default function Admin() {
 
     function enviarImagens() {
 
+        const uploadTaskCont = []
+        
         const storageRefTitle = ref(storage, `images/${artigo.img.name}`)
-        const uploadTaskTitle = uploadBytesResumable(storageRefTitle, artigo.img)
+        uploadTaskCont.push(uploadBytesResumable(storageRefTitle, artigo.img)) 
 
-        uploadTaskTitle.on(
+        uploadTaskCont[0].on(
             "state_changed",
-            snapshot => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                if(progress == 100) {
-                    setProgressTotal(false)
-                } else {
-                    setProgressTotal(true)
-
-                }
-                
-            },
-            error => {
-                alert(error)
-            },
             () => {
-                getDownloadURL(uploadTaskTitle.snapshot.ref).then(url => {
+                getDownloadURL(uploadTaskCont[0].snapshot.ref).then(url => {
                     setArtigo({...artigo, img: url})
 
                 })
@@ -49,40 +38,33 @@ export default function Admin() {
    
         )
 
+
         conteudo.map((e, index1)=> {
             e.img.map((elemt, index2)=> {
-                let storageRefCont = ref(storage, `images/${elemt}`)
-                let uploadTaskCont = uploadBytesResumable(storageRefCont, elemt)
 
-                uploadTaskCont.on(
+                const storageRefCont = ref(storage, `images/${elemt.name}`)
+                uploadTaskCont.push(uploadBytesResumable(storageRefCont, elemt)) 
+
+                uploadTaskCont[index2 + 1].on(
                     "state_changed",
-                    snapshot => {
-                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                        if(progress == 100) {
-                            setProgressTotal(false)
-                        } else {
-                            setProgressTotal(true)
-                        }
-                    },
-                    error => {
-                        alert(error)
-                    },
                     () => {
-                        getDownloadURL(uploadTaskCont.snapshot.ref).then(url => {
+                        getDownloadURL(uploadTaskCont[index2 + 1].snapshot.ref).then(url => {
                             conteudo[index1].img[index2] = url
                             setConteudo([...conteudo])
                         })
                     }
            
                 )
-                
-
-                
-            
             })
-            console.log(conteudo[index1])
+            Promise.all(uploadTaskCont)
+            .then(()=> {
+                setProgressTotal(100)
+            })
+            .catch((error=> {
+                console.log(error)
+            }))
+        
         })
-
     }
 
 
@@ -165,7 +147,7 @@ export default function Admin() {
 
                     <button onClick={addConteudo}>Add conteduo extra</button>
                     <button onClick={enviarImagens} type='button'> Upload Imagens</button>
-                    <button disabled={progressTotal} type="submit">Enviar</button>
+                    <button  type="submit">Enviar</button>
                     
                 </form>
             </div>
