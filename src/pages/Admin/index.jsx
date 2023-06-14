@@ -45,7 +45,7 @@ export default function Admin() {
                 const storageRefCont = ref(storage, `images/${elemt.name}`)
                 uploadTaskCont.push(uploadBytesResumable(storageRefCont, elemt)) 
 
-                uploadTaskCont[index2 + 1].on(
+                uploadTaskCont[index2 + 1 /* criar um calculo que de para carregar o array corretamente */].on( 
                     "state_changed",
                     () => {
                         getDownloadURL(uploadTaskCont[index2 + 1].snapshot.ref).then(url => {
