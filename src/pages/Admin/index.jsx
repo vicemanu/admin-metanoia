@@ -16,13 +16,12 @@ export default function Admin() {
 
     function addConteudo(e) {
         e.preventDefault()
-        setConteudo([...conteudo, {title:"", img: [], citation: [""], paragraph: [""], 
+        setConteudo([...conteudo, {title:"", img: [""], citation: [""], paragraph: [""], 
         author: [""] }])
     }
 
     function enviarImagens() {
 
-        if(!artigo.img === [""]) {
         const storageRefTitle = ref(storage, `images/${artigo.img.name}`)
         const uploadTaskTitle = uploadBytesResumable(storageRefTitle, artigo.img)
 
@@ -49,23 +48,11 @@ export default function Admin() {
             }
    
         )
-        }
-        
+
         conteudo.map((e, index1)=> {
-            e.map((e, index2)=> {
-                if(!e?.img[index2] == "") {
-
-                }
-            })
-        })
-            
-
-        for (let i = 0; i < conteudo.length ; i++) {
-            for(let e = 0; e < conteudo[i]?.img.length; e++) {
-
-                if(!conteudo[i]?.img[e] == "") {
-                let storageRefCont = ref(storage, `images/${conteudo[i].img[e]}`)
-                let uploadTaskCont = uploadBytesResumable(storageRefCont, conteudo[i].img[e])
+            e.img.map((elemt, index2)=> {
+                let storageRefCont = ref(storage, `images/${elemt}`)
+                let uploadTaskCont = uploadBytesResumable(storageRefCont, elemt)
 
                 uploadTaskCont.on(
                     "state_changed",
@@ -82,18 +69,20 @@ export default function Admin() {
                     },
                     () => {
                         getDownloadURL(uploadTaskCont.snapshot.ref).then(url => {
-                            conteudo[i].img[e] = url
+                            conteudo[index1].img[index2] = url
                             setConteudo([...conteudo])
                         })
                     }
            
                 )
-                } 
+                
 
                 
-            }
+            
+            })
+            console.log(conteudo[index1])
+        })
 
-        }
     }
 
 

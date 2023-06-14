@@ -14,7 +14,6 @@ export default function Conteudo(props) {
         if(!file) return;
         props.conteudo[props.index].img[index] = file
         props.setConteudo([...props.conteudo])
-        console.log(e)
     }
 
     function addCitation(e) {
@@ -81,7 +80,7 @@ export default function Conteudo(props) {
                                 <input type="file" 
                                     name="" 
                                     id={`img${index}`}
-                                    value={!props.dados.img[index] == "" ? props.dados.img[index].value : ""}
+                                    value={props.dados.img[index].value}
                                     onChange={e => {
                                         handleChangeImg(e, index)
                                     }}
@@ -90,7 +89,7 @@ export default function Conteudo(props) {
                         )
                     })
                 }
-
+{/* !props.dados.img[index] == "" ? props.dados.img[index].value : "" */}
             </div>
 
             {/* Citações e todo o sitema de citações */}
