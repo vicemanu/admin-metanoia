@@ -23,11 +23,12 @@ export default function Admin() {
     function enviarImagens() {
 
         const uploadTaskCont = []
+        let valorIndex = 0
         
         const storageRefTitle = ref(storage, `images/${artigo.img.name}`)
         uploadTaskCont.push(uploadBytesResumable(storageRefTitle, artigo.img)) 
 
-        uploadTaskCont[0].on(
+        uploadTaskCont[valorIndex].on(
             "state_changed",
             () => {
                 getDownloadURL(uploadTaskCont[0].snapshot.ref).then(url => {
@@ -42,13 +43,15 @@ export default function Admin() {
         conteudo.map((e, index1)=> {
             e.img.map((elemt, index2)=> {
 
+                valorIndex ++
+
                 const storageRefCont = ref(storage, `images/${elemt.name}`)
                 uploadTaskCont.push(uploadBytesResumable(storageRefCont, elemt)) 
 
-                uploadTaskCont[index2 + 1 /* criar um calculo que de para carregar o array corretamente */].on( 
+                uploadTaskCont[valorIndex].on( 
                     "state_changed",
                     () => {
-                        getDownloadURL(uploadTaskCont[index2 + 1].snapshot.ref).then(url => {
+                        getDownloadURL(uploadTaskCont[valorIndex].snapshot.ref).then(url => {
                             conteudo[index1].img[index2] = url
                             setConteudo([...conteudo])
                         })
