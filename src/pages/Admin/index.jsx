@@ -123,7 +123,13 @@ export default function Admin() {
                             <textarea name="" id="descrição" cols="30" rows="10" 
                                 value={artigo.description}
                                 onChange={
-                                    e => setArtigo({...artigo, description: e.target.value})
+                                    (e) => {
+                                        const valor = e.target.value
+                                        if(valor.length <= 200) {
+                                            setArtigo({...artigo, description: valor})
+                                        }
+                                        
+                                    }
                                 }
                             ></textarea>
                         </label>
