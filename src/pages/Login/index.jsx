@@ -19,7 +19,7 @@ export default function Login() {
         if(email !== '' && password !== '') {
           await signInWithEmailAndPassword(auth, email, password)
           .then(()=> {
-            navigate('/admin', {replace: true})
+            navigate('/admin/home', {replace: true})
           }) 
           .catch(()=> {
             console.log("ERR  O PARA FAZER LOGIN ")
