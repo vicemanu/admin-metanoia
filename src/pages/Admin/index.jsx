@@ -19,7 +19,7 @@ export default function Admin() {
         <div className='admin_page'>
         <menu className='menu'>
             <Logo/>
-            <button className='btn-logout' onClick={headleLogout}>Sair</button>
+            <button className='btn-logout' onClick={headleLogout}><i className="bi bi-person-fill"></i> Logout</button>
         </menu>
             
             <div className='admin_page--main'>

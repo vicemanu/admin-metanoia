@@ -1,3 +1,5 @@
+
+
 .admin_page {
     width: 100%;
     min-height: 100vh;
@@ -18,6 +20,19 @@
 
 .menu strong {
     font-size: 2em;
+}
+
+.menu button {
+    background-color: transparent;
+    border: none;
+    color: #39C4BD;
+    font-size: 1.4em;
+    font-family: 'Neoncity';
+    transition: all 0.3s;
+}
+
+.menu button:hover  {
+    color: rgba(182, 16, 16, 0.959);
 }
 
 .admin_page--main {
