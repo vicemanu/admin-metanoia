@@ -2,6 +2,7 @@ import './menu.css'
 import { signOut } from 'firebase/auth'
 import { auth } from '../../firebase'
 import Logo from '../../components/Logo'
+import { Link } from 'react-router-dom';
 
 
 
@@ -18,8 +19,8 @@ export default function Admin(children) {
         <menu className='menu'>
             <Logo/>
             <nav className='menu--links'>
-                <a href="">Home</a>
-                <a href="">NewArticle</a>
+                <Link to={"/admin"}>Home</Link>
+                <Link to={"/admin/new-article"}>NewArticle</Link>
             </nav>
             <button className='btn-logout' onClick={headleLogout}>
                 <i className="bi bi-person-fill"></i> Logout
