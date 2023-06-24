@@ -22,6 +22,19 @@
     font-size: 2em;
 }
 
+.menu--links a {
+    color: #39C4BD;
+    text-decoration: none;
+    font-family: 'Neoncity';
+    margin: 0px 8px;
+    font-size: 1.3em;
+}
+
+.menu--links a:hover {
+    color: #00fff2;
+
+}
+
 .menu button {
     background-color: transparent;
     border: none;
