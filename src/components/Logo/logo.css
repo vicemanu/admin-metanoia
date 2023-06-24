@@ -1,0 +1,22 @@
+@font-face {
+    font-family: 'BeonMedium';
+    src: url(/fontes/BeonMedium-6d51.otf);
+    src: url(/fontes/BeonMedium-7Z34.ttf);
+}
+
+@font-face {
+    font-family: 'Neoncity';
+    src: url(/fontes/NeoncityDisplay-MVVLv.otf);
+}
+
+.logo {
+    color: white;
+    font-family: 'Neoncity';
+    text-shadow: 0px 0px 4px black;
+}
+
+.logo__noia {
+    color: #39C4BD;
+    font-family: 'BeonMedium';
+    margin: -5;
+}
