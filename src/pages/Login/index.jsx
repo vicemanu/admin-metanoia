@@ -6,10 +6,10 @@ export default function Login() {
         <div className='login'>
             <form className='login--form' action="">
                 <Logo/>
-                <label htmlFor="">Email:<input type="email" /></label>
-                <label htmlFor="">Senha:<input type="password" /></label>
+                <label htmlFor="email">Email:<input id='email' type="email" /></label>
+                <label htmlFor="senha">Senha:<input id='senha' type="password" /></label>
                 <button type='submit'>Entrar</button>
             </form>
         </div>
     )
-}
+} 
