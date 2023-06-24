@@ -4,6 +4,7 @@ import { db, storage } from '../../firebase'
 import { addDoc, collection } from 'firebase/firestore'
 import './admin.css'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
+import Menu from '../../components/Menu'
 
 
 
@@ -95,7 +96,9 @@ export default function Admin() {
 
     return(
         <div className='admin_page'>
-            <div className='Menu'></div>
+
+            <Menu/>
+            
             <div className='admin_page--main'>
                 <form action="" onSubmit={eviarFireBase} className='main--form'>
                     <div className='form--div form--principal'>

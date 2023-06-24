@@ -4,16 +4,12 @@
     display: flex;
 }
 
-.Menu {
-    width: 240px;
-    height: 100%;
-    background-color: black;
-}
 
 .admin_page--main {
     width: 90%;
     display: flex;
     justify-content: center;
+    margin-top: 70px;
 }
 
 .main--form {
