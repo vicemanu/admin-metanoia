@@ -3,6 +3,8 @@ import { signOut } from 'firebase/auth'
 import Add from '../../components/Add'
 import { auth } from '../../firebase'
 import Logo from '../../components/Logo'
+import Router from '../../Router'
+import { Route, Routes } from 'react-router-dom'
 
 
 
@@ -14,22 +16,16 @@ export default function Admin() {
     }
 
 
-
     return(
         <div className='admin_page'>
-        <menu className='menu'>
-            <Logo/>
-            <nav className='menu--links'>
-                <a href="">Home</a>
-                <a href="">NewArticle</a>
-            </nav>
-            <button className='btn-logout' onClick={headleLogout}>
-                <i className="bi bi-person-fill"></i> Logout
-            </button>
-        </menu>
-            
+            <h1>Artigos</h1>
             <div className='admin_page--main'>
-                <Add/>
+                    <section className='page_main--articles'>
+
+                    </section>
+                    <aside className='page_main--options'>
+
+                    </aside>
             </div>
         </div>
     )
