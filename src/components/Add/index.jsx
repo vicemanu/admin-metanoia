@@ -1,7 +1,7 @@
 import './add.css'
 import { useState } from 'react'
 import Conteudo from '../../components/Conteudo'
-import { db, storage, auth } from '../../firebase'
+import { db, storage } from '../../firebase'
 import { addDoc, collection } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
 
