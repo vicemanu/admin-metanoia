@@ -1,11 +1,11 @@
-import './add.css'
+import './newarticle.css'
 import { useState } from 'react'
 import Conteudo from '../../components/Conteudo'
 import { db, storage } from '../../firebase'
 import { addDoc, collection } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
 
-export default function Add() {
+export default function NewAticle() {
 
     const [conteudo, setConteudo] = useState([{title:"", img: [""], citation: [""], paragraph: [""], 
     author: [""] }])
@@ -89,9 +89,11 @@ export default function Add() {
         
     }
 
+    console.log(artigo)
 
     return(
-        <form action="" onSubmit={eviarFireBase} className='main--form'>
+        <section className='newarticle'>
+            <form action="" onSubmit={eviarFireBase} className='main--form'>
                     <div className='form--div form--principal'>
 
                         {/* Parte principal do artigo */}
@@ -153,5 +155,6 @@ export default function Add() {
                     <button  type="submit">Enviar</button>
                     
                 </form>
+        </section>
     )
 }

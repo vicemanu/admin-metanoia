@@ -1,5 +1,11 @@
+.newarticle {
+    display: flex;
+    justify-content: center;
+    padding-top: 60px;
+}
+
+
 .main--form {
-    background-color: white;
     margin-top: 20px;
     width: 90%;
     display: flex;

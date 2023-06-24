@@ -1,6 +1,6 @@
 import './admin.css'
 import { signOut } from 'firebase/auth'
-import Add from '../../components/Add'
+import Add from '../NewArticle'
 import { auth } from '../../firebase'
 import Logo from '../../components/Logo'
 import Router from '../../Router'
