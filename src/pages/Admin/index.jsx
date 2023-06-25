@@ -1,15 +1,46 @@
 import './admin.css'
 import { signOut } from 'firebase/auth'
-import Add from '../NewArticle'
-import { auth } from '../../firebase'
-import Logo from '../../components/Logo'
-import Router from '../../Router'
-import { Route, Routes } from 'react-router-dom'
+import { auth, db } from '../../firebase'
+import { useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { useEffect } from 'react';
 
 
 
 
 export default function Admin() {
+
+    const [articles, setArticles] = useState([])
+
+    useEffect(()=> {
+        async function buscarArtigos() {
+            const artigosRef = collection(db, 'artigo');
+            await getDocs(artigosRef)
+            .then((snapshot) => {
+                let lista  = [];
+                snapshot.forEach((doc)=> {
+                    lista.push({
+                        title: doc.data().title,
+                        date: doc.data().date,
+                        img: doc.data().img,
+                        id: doc.id
+                    })
+                })
+    
+                setArticles(lista)
+                console.log(articles)
+
+            })
+            .catch((error)=> {
+                console.log(error)
+            })
+        }
+
+        buscarArtigos()
+    },[])
+
+    
+
 
     async function headleLogout() {
         await signOut(auth);
@@ -21,7 +52,21 @@ export default function Admin() {
             <h1>Artigos</h1>
             <div className='admin_page--main'>
                     <section className='page_main--articles'>
+                        {articles?.map(e=> {
+                            return(
+                                <div className='article_box_edition' key={e.id}>
+                                    <img className='article_box_edition--img' src={e.img} alt="" />
+                                    <div className='article_box_edition--box_title' >
+                                        <h3 >{e.title}</h3>
+                                        <p>{e.date}</p>
+                                        <a className='article_box_edition_title--edit' href="">Editar</a>
+                                        <a href="">botão switch</a>
+                                        <a href="">Remover (edita o codigo)</a>
+                                    </div>
 
+                                </div>
+                            )
+                        })}
                     </section>
                     <aside className='page_main--options'>
 
