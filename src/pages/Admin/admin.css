@@ -84,4 +84,19 @@
     color: var(--cor4);
 }
 
+.article_box_edition_title--remove {
+    position: absolute;
+    left: 70px;
+    bottom: 14px;
+    font-family: 'Neoncity';
+    color: rgb(255, 35, 35);
+    text-decoration: none;
+    font-size: 1em;
+
+}
+
+.article_box_edition_title--remove:hover {
+    color: white;
+}
+
 

@@ -59,9 +59,12 @@ export default function Admin() {
                                     <div className='article_box_edition--box_title' >
                                         <h3 >{e.title}</h3>
                                         <p>{e.date}</p>
+                                        
                                         <a className='article_box_edition_title--edit' href="">Editar</a>
+                                        
                                         <a href="">botão switch</a>
-                                        <a href="">Remover (edita o codigo)</a>
+                                        
+                                        <a className='article_box_edition_title--remove' href="">Delete</a>
                                     </div>
 
                                 </div>
