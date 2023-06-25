@@ -75,6 +75,7 @@
 .article_box_edition_title--edit {
     position: absolute;
     bottom: 14px;
+    left: 120px;
     font-family: 'Neoncity';
     color: white;
     text-decoration: none;
@@ -88,7 +89,7 @@
 
 .article_box_edition_title--remove {
     position: absolute;
-    left: 70px;
+    left: 170px;
     bottom: 14px;
     font-family: 'Neoncity';
     color: rgb(255, 35, 35);
@@ -101,12 +102,24 @@
     color: white;
 }
 
+.article_box_edition_title--destaque {
+    position: absolute;
+    bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: white;
+    font-size: 0.9em;
+    font-family: 'Neoncity';
+}
+
 
 .switch {
     position: relative;
     display: inline-block;
     width:30px;
     height: 16px;
+    color: white;
 }
 
 .slider {
@@ -136,10 +149,9 @@
 }
 
 .switch input:checked + .slider {
-    background-color: black;
+    background-color: rgb(108, 177, 29);
 }
 
 .switch input:checked + .slider::before {
     transform: translateX(12px);
-    background-color: white;
 }

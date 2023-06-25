@@ -62,9 +62,12 @@ export default function Admin() {
                                         
                                         <a className='article_box_edition_title--edit' href="">Editar</a>
                                         
-                                        <label className='switch' htmlFor={`swith${index}`}>
+                                        <label className="article_box_edition_title--destaque"  htmlFor={`swith${index}`}>
+                                            Destaque: 
+                                            <div className='switch' > 
                                             <input id={`swith${index}`} type="checkbox" />
                                             <span className='slider'></span>
+                                        </div>
                                         </label>
                                         
                                         <a className='article_box_edition_title--remove' href="">Delete</a>
