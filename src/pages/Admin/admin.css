@@ -31,6 +31,7 @@
 
 .article_box_edition {
     width: 80%;
+    height: 120px;
     display: flex;
     margin: 0 auto;
     margin-top: 20px;
@@ -60,6 +61,7 @@
 .article_box_edition--box_title p {
     font-size: 0.7em;
     color: rgba(255, 255, 255, 0.753);
+    margin-bottom: 5px;
 }
 
 .article_box_edition--box_title p::before {
@@ -100,3 +102,44 @@
 }
 
 
+.switch {
+    position: relative;
+    display: inline-block;
+    width:30px;
+    height: 16px;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    transition: .5s;
+    border-radius: 34px;
+}
+
+.switch input {display: none; }
+
+.slider::before {
+    position: absolute;
+    content: "";
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    left: 1px;
+    bottom: 1px;
+    background-color: rgb(26, 25, 25);
+    transition: .4s;
+}
+
+.switch input:checked + .slider {
+    background-color: black;
+}
+
+.switch input:checked + .slider::before {
+    transform: translateX(12px);
+    background-color: white;
+}

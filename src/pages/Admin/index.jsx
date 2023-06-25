@@ -52,17 +52,20 @@ export default function Admin() {
             <h1>Artigos</h1>
             <div className='admin_page--main'>
                     <section className='page_main--articles'>
-                        {articles?.map(e=> {
+                        {articles?.map((e, index)=> {
                             return(
                                 <div className='article_box_edition' key={e.id}>
                                     <img className='article_box_edition--img' src={e.img} alt="" />
                                     <div className='article_box_edition--box_title' >
                                         <h3 >{e.title}</h3>
-                                        <p>{e.date}</p>
+                                        <p>{e.date}</p> 
                                         
                                         <a className='article_box_edition_title--edit' href="">Editar</a>
                                         
-                                        <a href="">botão switch</a>
+                                        <label className='switch' htmlFor={`swith${index}`}>
+                                            <input id={`swith${index}`} type="checkbox" />
+                                            <span className='slider'></span>
+                                        </label>
                                         
                                         <a className='article_box_edition_title--remove' href="">Delete</a>
                                     </div>
