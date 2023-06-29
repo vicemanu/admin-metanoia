@@ -1,0 +1,37 @@
+.form--pesquisa {
+    display: flex;
+    width: 320px;
+    height: 25px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.form--pesquisa input {
+    width: 100%;
+    height: 25px;
+    border-radius: 10px 0px 0px 10px;
+    padding: 0px 10px;
+    font-family: sans-serif;
+    border: none;
+}
+
+.form--pesquisa button {
+    width: 60px;
+    height: 100%;
+    display: block;
+    border: none;
+    background-color: white;
+    color: #008DC3;
+    font-size: 1em;
+    border-radius: 0px 10px 10px 0px;
+    transition: all 0.5s;
+    text-align: center;
+    padding: 3px 0px;
+}
+
+.form--pesquisa button:hover {
+
+    background-color: #008DC3;
+    color: white;
+}

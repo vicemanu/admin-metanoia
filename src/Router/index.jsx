@@ -12,6 +12,8 @@ export default function Router() {
     <Routes>
         <Route path="/" element={<Login/>}  />
         <Route path="/admin/home" element={<Private><Menu/><Admin/></Private>}/>
+        <Route path="/admin/home/:slug" element={<Private><Menu/><Admin/></Private>}/>
+        <Route path="/admin/edit/:slug" element={<Private><Menu/><Admin/></Private>}/>
         <Route path="/admin/new-article" element={<Private><Menu/><NewAticle/></Private>}/>
         {/* Criar pagina do 404 não encontrado */}
     </Routes>
