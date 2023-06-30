@@ -1,6 +1,6 @@
 import './edit.css'
 import { useEffect, useState } from 'react'
-import Conteudo from '../../components/Conteudo'
+import Conteudo from './Conteudo'
 import { useParams } from 'react-router-dom'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { db } from '../../firebase'
@@ -8,9 +8,7 @@ import { db } from '../../firebase'
 export default function Edit() {
     
     const { slug } = useParams()
-    const [artigo, setArtigo] = useState([""])
-    const [conteudo, setConteudo] = useState([{title:"", img: [""], citation: [""], paragraph: [""], 
-    author: [""] }])
+    const [artigo, setArtigo] = useState({})
 
     useEffect(()=> {
     async function artigo() {
@@ -33,10 +31,16 @@ export default function Edit() {
     console.log(artigo)
 
 
+    function addConteudo(e) {
+        e.preventDefault()
+        setArtigo({...artigo, conteudo:[...artigo.conteudo, {title:"", img: [""], citation: [""], paragraph: [""], 
+        author: [""] }]})
+    }
+
    async function editArticle(e) {
 
         e.preventDefault()
-
+        
         const postRef = doc( db, "artigo", slug)
 
         await updateDoc(postRef, artigo)
@@ -97,14 +101,16 @@ export default function Edit() {
                     {/* Parte do conteudo do artigo */}
 
                     {/* {
-                        artigo.conteudo.map((e , index ) => {
+                        artigo.conteudo?.map((e , index ) => {
                             return (
-                                <Conteudo key={index} index={index} dados={e} conteudo={e.conteudo} setConteudo={setArtigo} artigo={artigo} setArtigo={setArtigo}/>
+                                <Conteudo key={index} index={index} dados={e} conteudo={e.conteudo}/>
                             )
                         })
-                    } */}
+                    } */}  {
+                        /** Recriar a parte toda do conteudo e fazer funcionar em um state só */
+                    }
 
-                    <button >Add conteduo extra</button>
+                    <button onClick={addConteudo} >Add conteduo extra</button>
                     <button onClick={e => editArticle(e)}>Enviar</button>
                     
                 </form>
