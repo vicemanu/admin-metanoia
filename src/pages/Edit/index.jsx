@@ -53,6 +53,7 @@ export default function Edit() {
 
         await updateDoc(postRef, artigo)
         .then((snapshot)=> {
+            window.alert('conteudo editado')
         })
         .catch((e)=> {
             console.log(e)

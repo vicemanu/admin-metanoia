@@ -3,48 +3,48 @@ import './conteudo.css'
 export default function Conteudo(props) {
 
 
-    // function addImg(e) {
-    //     e.preventDefault()
-    //     props.conteudo[props.index].img = [...props.conteudo[props.index].img, ""]
-    //     props.setConteudo([...props.conteudo])
-    // }
+    function addImg(e) {
+        e.preventDefault()
+        props.conteudo[props.index].img = [...props.conteudo[props.index].img, ""]
+        props.setConteudo([...props.conteudo])
+    }
 
-    // function handleChangeImg(e, index) {
-    //     let file = e.target?.files[0]
-    //     if(!file) return;
-    //     props.conteudo[props.index].img[index] = file
-    //     props.setConteudo([...props.conteudo])
-    // }
+    function handleChangeImg(e, index) {
+        let file = e.target?.files[0]
+        if(!file) return;
+        props.conteudo[props.index].img[index] = file
+        props.setConteudo([...props.conteudo])
+    }
 
-    // function addCitation(e) {
-    //     e.preventDefault()
-    //     props.conteudo[props.index].citation = [...props.conteudo[props.index].citation, ""]
-    //     props.conteudo[props.index].author = [...props.conteudo[props.index].author, ""]
-    //     props.setConteudo([...props.conteudo])
-    // }
+    function addCitation(e) {
+        e.preventDefault()
+        props.conteudo[props.index].citation = [...props.conteudo[props.index].citation, ""]
+        props.conteudo[props.index].author = [...props.conteudo[props.index].author, ""]
+        props.setConteudo([...props.conteudo])
+    }
 
-    // function handleChangeCitation(e, index) {
-    //     props.conteudo[props.index].citation[index] = e.target.value
-    //     props.setConteudo([...props.conteudo])
-    // }
+    function handleChangeCitation(e, index) {
+        props.conteudo[props.index].citation[index] = e.target.value
+        props.setConteudo([...props.conteudo])
+    }
 
-    // function handleChangeAutor(e, index) {
-    //     props.conteudo[props.index].author[index] = e.target.value
-    //     props.setConteudo([...props.conteudo])
-    // }
+    function handleChangeAutor(e, index) {
+        props.conteudo[props.index].author[index] = e.target.value
+        props.setConteudo([...props.conteudo])
+    }
 
-    // function addParagraph(e) {
-    //     e.preventDefault()
-    //     props.conteudo[props.index].paragraph = [...props.conteudo[props.index].paragraph, ""]
-    //     props.setConteudo([...props.conteudo])
+    function addParagraph(e) {
+        e.preventDefault()
+        props.conteudo[props.index].paragraph = [...props.conteudo[props.index].paragraph, ""]
+        props.setConteudo([...props.conteudo])
 
-    // }
+    }
 
-    // function handleChangeParagraph(e, index) {
-    //     props.conteudo[props.index].paragraph[index] = e.target.value
-    //     props.setConteudo([...props.conteudo])
-    //     console.log(props.conteudo)
-    // }
+    function handleChangeParagraph(e, index) {
+        props.conteudo[props.index].paragraph[index] = e.target.value
+        props.setConteudo([...props.conteudo])
+        console.log(props.conteudo)
+    }
 
 
     return(
@@ -68,19 +68,19 @@ export default function Conteudo(props) {
             {/* Sistema de carregam de imagens do componente de conteudo */}
             {/* Retornar no campo img, fazer sistema de envio como dados de imagem e não do file do meu pc */}
             <h2>Imagens 
-                <button>
+                <button onClick={addImg}>
                     <i className="bi bi-plus-circle"></i>
                 </button>
             </h2>
             <div className='conteudo--div'>
-                {/* {
+                {
                     props.conteudo[props.index].img.map((e, index) => {
                         return(
                             <label key={index} htmlFor={`img${index}`}>
                                 <input type="file" 
                                     name="" 
                                     id={`img${index}`}
-                                    value={props.dados.img[index].value}
+                                    value={props.conteudo[props.index].img[index].value}
                                     onChange={e => {
                                         handleChangeImg(e, index)
                                     }}
@@ -88,8 +88,7 @@ export default function Conteudo(props) {
                             </label>
                         )
                     })
-                } */}
-{/* !props.dados.img[index] == "" ? props.dados.img[index].value : "" */}
+                }
             </div>
 
             {/* Citações e todo o sitema de citações */}
