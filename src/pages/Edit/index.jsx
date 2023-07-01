@@ -59,6 +59,17 @@ export default function Edit() {
             console.log(e)
         })
       }
+
+      
+    function removeConteudo(e, ind) {
+        e.preventDefault()
+        let filtrado = conteudo.filter((e, index)=> {
+           if( index !== ind ) {
+            return e;
+           }
+        })
+        setConteudo([...filtrado])
+    }
     
 
     return(
@@ -137,7 +148,7 @@ export default function Edit() {
                     {
                         conteudo?.map((e , index ) => {
                             return (
-                                <Conteudo key={index} index={index} conteudo={conteudo} setConteudo={setConteudo}/>
+                                <Conteudo key={index} index={index} conteudo={conteudo} setConteudo={setConteudo} removeConteudo={removeConteudo}/>
                             )
                         })
                     }

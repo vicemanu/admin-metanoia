@@ -9,6 +9,15 @@ export default function Conteudo(props) {
         props.setConteudo([...props.conteudo])
     }
 
+    function removImg(e , position) {
+        e.preventDefault()
+        props.conteudo[props.index].img = props.conteudo[props.index].img.filter((ele, index)=> {
+            if(position != index)
+             return " "
+         })
+        props.setConteudo([...props.conteudo]) 
+    }
+
     function handleChangeImg(e, index) {
         let file = e.target?.files[0]
         if(!file) return;
@@ -21,6 +30,19 @@ export default function Conteudo(props) {
         props.conteudo[props.index].citation = [...props.conteudo[props.index].citation, ""]
         props.conteudo[props.index].author = [...props.conteudo[props.index].author, ""]
         props.setConteudo([...props.conteudo])
+    }
+
+    function removCitation(e , position) {
+        e.preventDefault()
+        props.conteudo[props.index].citation = props.conteudo[props.index].citation.filter((ele, index)=> {
+            if(position != index)
+             return " "
+         })
+         props.conteudo[props.index].author = props.conteudo[props.index].author.filter((ele, index)=> {
+            if(position != index)
+             return " "
+         })
+        props.setConteudo([...props.conteudo]) 
     }
 
     function handleChangeCitation(e, index) {
@@ -40,6 +62,16 @@ export default function Conteudo(props) {
 
     }
 
+    function removParagraph(e , position) {
+        e.preventDefault()
+        props.conteudo[props.index].paragraph = props.conteudo[props.index].paragraph.filter((ele, index)=> {
+            if(position != index)
+             return " "
+         })
+        props.setConteudo([...props.conteudo]) 
+    }
+
+
     function handleChangeParagraph(e, index) {
         props.conteudo[props.index].paragraph[index] = e.target.value
         props.setConteudo([...props.conteudo])
@@ -50,6 +82,7 @@ export default function Conteudo(props) {
     return(
 
         <div className='conteudo'>
+            <button onClick={ (e) => props.removeConteudo(e , props.index )} className='conteudo--remove'>Delete</button>
 
             {/* Titulo do componente de conteudo */}
             
@@ -85,6 +118,9 @@ export default function Conteudo(props) {
                                         handleChangeImg(e, index)
                                     }}
                                 />
+                                <button onClick={(e) => removImg(e, index)}>
+                                    <i className="bi bi-plus-circle"></i>
+                                </button>
                             </label>
                         )
                     })
@@ -120,6 +156,9 @@ export default function Conteudo(props) {
                                         }}
                                     />
                                 </label>
+                                <button onClick={(e) => removCitation(e, index)}>
+                                    <i className="bi bi-plus-circle"></i>
+                                </button>
                             </label> 
                         )
                     })
@@ -147,6 +186,9 @@ export default function Conteudo(props) {
                                     value={props.conteudo[props.index].paragraph[index]}
                                     onChange={e => {handleChangeParagraph(e, index)}}
                                 ></textarea>
+                                <button onClick={(e) => removParagraph(e, index)}>
+                                    <i className="bi bi-plus-circle"></i>
+                                </button>
                             </label>  
                         )      
                     })
