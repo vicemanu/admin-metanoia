@@ -9,6 +9,8 @@ export default function Edit() {
     
     const { slug } = useParams()
     const [artigo, setArtigo] = useState({})
+    const [conteudo, setConteudo] = useState([{title:"", img: [""], citation: [""], paragraph: [""], 
+    author: [""] }])
 
     useEffect(()=> {
     async function artigo() {
@@ -18,6 +20,7 @@ export default function Edit() {
         await getDoc(postRef)
         .then((snapshot)=> {
           setArtigo(snapshot.data())
+          setConteudo([...snapshot.data().conteudo])
         })
         .catch((e)=> {
             console.log(e)
@@ -29,13 +32,18 @@ export default function Edit() {
     },[])
 
     console.log(artigo)
+    // console.log(conteudo)
 
+    useEffect(()=> {
+        setArtigo({...artigo, conteudo: conteudo})
+    },[conteudo])
 
     function addConteudo(e) {
         e.preventDefault()
-        setArtigo({...artigo, conteudo:[...artigo.conteudo, {title:"", img: [""], citation: [""], paragraph: [""], 
-        author: [""] }]})
+        setConteudo([...conteudo, {title:"", img: [""], citation: [""], paragraph: [""], 
+        author: [""] }])
     }
+
 
    async function editArticle(e) {
 
@@ -45,7 +53,6 @@ export default function Edit() {
 
         await updateDoc(postRef, artigo)
         .then((snapshot)=> {
-            window.alert("atualizado com sucesso")
         })
         .catch((e)=> {
             console.log(e)
@@ -96,18 +103,17 @@ export default function Edit() {
                                 }
                              />
                         </label>
-                    </div>
+                    </div> 
+
+
 
                     {/* Parte do conteudo do artigo */}
-
-                    {/* {
-                        artigo.conteudo?.map((e , index ) => {
+                    {
+                        conteudo?.map((e , index ) => {
                             return (
-                                <Conteudo key={index} index={index} dados={e} conteudo={e.conteudo}/>
+                                <Conteudo key={index} index={index} conteudo={conteudo} setConteudo={setConteudo}/>
                             )
                         })
-                    } */}  {
-                        /** Recriar a parte toda do conteudo e fazer funcionar em um state só */
                     }
 
                     <button onClick={addConteudo} >Add conteduo extra</button>

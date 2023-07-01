@@ -3,48 +3,48 @@ import './conteudo.css'
 export default function Conteudo(props) {
 
 
-    function addImg(e) {
-        // e.preventDefault()
-        // props.conteudo[props.index].img = [...props.conteudo[props.index].img, ""]
-        // props.setConteudo([...props.conteudo])
-    }
+    // function addImg(e) {
+    //     e.preventDefault()
+    //     props.conteudo[props.index].img = [...props.conteudo[props.index].img, ""]
+    //     props.setConteudo([...props.conteudo])
+    // }
 
-    function handleChangeImg(e, index) {
-        // let file = e.target?.files[0]
-        // if(!file) return;
-        // props.conteudo[props.index].img[index] = file
-        // props.setConteudo([...props.conteudo])
-    }
+    // function handleChangeImg(e, index) {
+    //     let file = e.target?.files[0]
+    //     if(!file) return;
+    //     props.conteudo[props.index].img[index] = file
+    //     props.setConteudo([...props.conteudo])
+    // }
 
-    function addCitation(e) {
-        // e.preventDefault()
-        // props.conteudo[props.index].citation = [...props.conteudo[props.index].citation, ""]
-        // props.conteudo[props.index].author = [...props.conteudo[props.index].author, ""]
-        // props.setConteudo([...props.conteudo])
-    }
+    // function addCitation(e) {
+    //     e.preventDefault()
+    //     props.conteudo[props.index].citation = [...props.conteudo[props.index].citation, ""]
+    //     props.conteudo[props.index].author = [...props.conteudo[props.index].author, ""]
+    //     props.setConteudo([...props.conteudo])
+    // }
 
-    function handleChangeCitation(e, index) {
-        // props.conteudo[props.index].citation[index] = e.target.value
-        // props.setConteudo([...props.conteudo])
-    }
+    // function handleChangeCitation(e, index) {
+    //     props.conteudo[props.index].citation[index] = e.target.value
+    //     props.setConteudo([...props.conteudo])
+    // }
 
-    function handleChangeAutor(e, index) {
-        // props.conteudo[props.index].author[index] = e.target.value
-        // props.setConteudo([...props.conteudo])
-    }
+    // function handleChangeAutor(e, index) {
+    //     props.conteudo[props.index].author[index] = e.target.value
+    //     props.setConteudo([...props.conteudo])
+    // }
 
-    function addParagraph(e) {
-        // e.preventDefault()
-        // props.conteudo[props.index].paragraph = [...props.conteudo[props.index].paragraph, ""]
-        // props.setConteudo([...props.conteudo])
+    // function addParagraph(e) {
+    //     e.preventDefault()
+    //     props.conteudo[props.index].paragraph = [...props.conteudo[props.index].paragraph, ""]
+    //     props.setConteudo([...props.conteudo])
 
-    }
+    // }
 
-    function handleChangeParagraph(e, index) {
-        // props.conteudo[props.index].paragraph[index] = e.target.value
-        // props.setConteudo([...props.conteudo])
-        // console.log(props.conteudo)
-    }
+    // function handleChangeParagraph(e, index) {
+    //     props.conteudo[props.index].paragraph[index] = e.target.value
+    //     props.setConteudo([...props.conteudo])
+    //     console.log(props.conteudo)
+    // }
 
 
     return(
@@ -56,7 +56,7 @@ export default function Conteudo(props) {
             <label className='conteudo--title' htmlFor="">
                 Titulo {props.index + 1}: 
                 <input type="text" name="" id="" 
-                value={props.dados.title}
+                value={props.conteudo[props.index].title}
                 onChange={e => {
                     props.conteudo[props.index].title = e.target.value
                     props.setConteudo([...props.conteudo])
@@ -68,12 +68,12 @@ export default function Conteudo(props) {
             {/* Sistema de carregam de imagens do componente de conteudo */}
             {/* Retornar no campo img, fazer sistema de envio como dados de imagem e não do file do meu pc */}
             <h2>Imagens 
-                <button onClick={addImg}>
+                <button>
                     <i className="bi bi-plus-circle"></i>
                 </button>
             </h2>
             <div className='conteudo--div'>
-                {
+                {/* {
                     props.conteudo[props.index].img.map((e, index) => {
                         return(
                             <label key={index} htmlFor={`img${index}`}>
@@ -88,19 +88,19 @@ export default function Conteudo(props) {
                             </label>
                         )
                     })
-                }
+                } */}
 {/* !props.dados.img[index] == "" ? props.dados.img[index].value : "" */}
             </div>
 
             {/* Citações e todo o sitema de citações */}
 
             <h2>Citações 
-                <button onClick={addCitation}>
+                <button >
                     <i className="bi bi-plus-circle"></i>
                 </button>
             </h2>
             <div className='conteudo--div'>
-                {
+                {/* {
                     props.conteudo[props.index].citation.map((e, index)=> {
                         return(
                             <label key={index} className='conteudo_div--citacao'  htmlFor={`citation${index}`}>
@@ -124,19 +124,19 @@ export default function Conteudo(props) {
                             </label> 
                         )
                     })
-                }
+                } */}
             </div>
 
             {/* Paragrafos de conteudo */}
 
 
             <h2>Paragrafos 
-                <button onClick={addParagraph}>
+                <button >
                     <i className="bi bi-plus-circle"></i>
                 </button>
             </h2>
             <div className='conteudo--div'>
-                {
+                {/* {
                     props.conteudo[props.index].paragraph.map((e, index) => {
                         return(
                             <label key={index} className='conteudo_div--paragrafo' htmlFor={`paragraph${index}`}>
@@ -151,7 +151,7 @@ export default function Conteudo(props) {
                             </label>  
                         )      
                     })
-                }
+                } */}
             </div> 
 
                                  
