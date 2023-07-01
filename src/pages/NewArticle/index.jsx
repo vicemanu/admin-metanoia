@@ -9,7 +9,7 @@ export default function NewAticle() {
 
     const [conteudo, setConteudo] = useState([{title:"", img: [""], citation: [""], paragraph: [""], 
     author: [""] }])
-    const [artigo, setArtigo] = useState({ title: "", img: [""], description: "", date: "", conteudo: ""})
+    const [artigo, setArtigo] = useState({ title: "", img: [""], description: "", date: "", conteudo: "",destaque: false, remove: false})
     const [progressTotal, setProgressTotal] = useState(0)
 
     function addConteudo(e) {
@@ -105,6 +105,7 @@ export default function NewAticle() {
                                 e => setArtigo({...artigo, title: e.target.value})
                                 }  />
                         </label>
+
                         <label className='form_principal--img' htmlFor="background"> Background: 
                             <input type="file" name="" id="background" 
                                 value={artigo.img.value}
@@ -129,15 +130,40 @@ export default function NewAticle() {
                                 }
                             ></textarea>
                         </label>
-                        <label className='form_principal--date' htmlFor="lancamento">
-                            Dia de lançamento:
-                            <input type="date" id='lancamento'
-                                value={artigo.date}
-                                onChange={
-                                    e => setArtigo({...artigo, date: e.target.value})
-                                }
-                             />
-                        </label>
+                        <div className='form_principal--box-destaques'>
+                            
+                            <label className="box-destaques"  htmlFor={`swithdestaque`}>
+                                            Destaque: 
+                                            <div className='switch' > 
+                                            <input id={`swithdestaque`} type="checkbox" onChange={(element) => {
+                                                setArtigo({...artigo, destaque: element.target.checked})
+                                            }} />
+                                            <span className='slider'></span>
+                                        </div>
+                            </label>
+
+                            <label className="box-destaques"  htmlFor={`swithRemove`}>
+                                        Delete: 
+                                        <div className='switch' > 
+                                            <input id={`swithRemove`} type="checkbox" onChange={(element) => {
+                                                setArtigo({...artigo, remove: element.target.checked})
+                                            }} />
+                                            <span className='slider'></span>
+                                        </div>
+                                        </label>    
+
+
+                            <label className='form_principal--date' htmlFor="lancamento">
+                                Dia de lançamento:
+                                <input type="date" id='lancamento'
+                                    value={artigo.date}
+                                    onChange={
+                                        e => setArtigo({...artigo, date: e.target.value})
+                                    }
+                                />
+                            </label>
+                        </div>
+                        
                     </div>
 
                     {/* Parte do conteudo do artigo */}
