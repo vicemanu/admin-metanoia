@@ -39,12 +39,19 @@
     border-radius: 10px;
     overflow: hidden;
     background-color: rgb(26, 25, 25);
+    position: relative;
 }
 
 .article_box_edition--img {
     width: 200px;
     height: 120px;
     object-fit: cover;
+}
+
+.article_box_edition--delete {
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
 
 .article_box_edition--box_title {

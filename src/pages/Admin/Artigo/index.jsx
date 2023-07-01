@@ -1,4 +1,4 @@
-import { doc, updateDoc } from "firebase/firestore"
+import { deleteDoc, doc, updateDoc } from "firebase/firestore"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import { db } from "../../../firebase"
@@ -12,10 +12,20 @@ export default function Artigo(props) {
     const [destaque, setDestaque] = useState(props.data.destaque)
     const [remove, setRemove] = useState(props.data.remove)
 
-
+    async function deleteArtigo(id) {
+        const postRef = doc( db, "artigo", id)
+            await deleteDoc(postRef)
+            .then((snapshot)=> {
+            })
+            .catch((e)=> {
+                console.log(e)
+            })
+    }
 
     return(
-            <div className='article_box_edition' key={e.id}>
+            <div className='article_box_edition' onClick={ele => deleteArtigo(e.id)} key={e.id}>
+                                        <button className="article_box_edition--delete">Delete</button>
+
                                         <img className='article_box_edition--img' src={e.img} alt="" />
                                         <div className='article_box_edition--box_title' >
                                             <h3 >{e.title}</h3>
