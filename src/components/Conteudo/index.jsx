@@ -9,6 +9,15 @@ export default function Conteudo(props) {
         props.setConteudo([...props.conteudo])
     }
 
+    function removImg(e , position) {
+        e.preventDefault()
+        props.conteudo[props.index].img = props.conteudo[props.index].img.filter((ele, index)=> {
+            if(position != index)
+             return " "
+         })
+        props.setConteudo([...props.conteudo])
+    }
+
     function handleChangeImg(e, index) {
         let file = e.target?.files[0]
         if(!file) return;
@@ -73,6 +82,8 @@ export default function Conteudo(props) {
                 <button onClick={addImg}>
                     <i className="bi bi-plus-circle"></i>
                 </button>
+
+                
             </h2>
             <div className='conteudo--div'>
                 {
@@ -87,6 +98,9 @@ export default function Conteudo(props) {
                                         handleChangeImg(e, index)
                                     }}
                                 />
+                                <button onClick={(e) => removImg(e, index)}>
+                                    <i className="bi bi-plus-circle"></i>
+                                </button>
                             </label>
                         )
                     })
