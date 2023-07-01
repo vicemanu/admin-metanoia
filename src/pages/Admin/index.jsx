@@ -2,7 +2,7 @@ import './admin.css'
 import { signOut } from 'firebase/auth'
 import { auth, db } from '../../firebase'
 import { useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, doc,  getDocs, updateDoc } from 'firebase/firestore';
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Pesquisa from '../../components/Pesquisa';
@@ -26,7 +26,9 @@ export default function Admin() {
                         title: doc.data().title,
                         date: doc.data().date,
                         img: doc.data().img,
-                        id: doc.id
+                        id: doc.id,
+                        destaque: doc.data().destaque,
+                        remove: doc.data().remove
                     })
                 })
 
@@ -50,12 +52,36 @@ export default function Admin() {
         buscarArtigos()
     },[])
 
-    function editDestaque(id, destaque) {
-        console.log(id, destaque)
-    }
+    console.log(articles)
 
-    function editRemove(id, destaque) {
-        console.log(id, destaque)
+    async function editDestaque(id, destaque) {
+            
+            const postRef = doc( db, "artigo", id)
+            await updateDoc(postRef, {
+                destaque: destaque
+            })
+            .then((snapshot)=> {
+                window.alert('conteudo editado')
+            })
+            .catch((e)=> {
+                console.log(e)
+            })
+          }
+ 
+          
+    
+
+    async function editRemove(id, remove) {
+        const postRef = doc( db, "artigo", id)
+            await updateDoc(postRef, {
+                remove: remove
+            })
+            .then((snapshot)=> {
+                window.alert('conteudo editado')
+            })
+            .catch((e)=> {
+                console.log(e)
+            })
     }
 
     async function headleLogout() {
@@ -78,10 +104,10 @@ export default function Admin() {
                                         
                                         <Link to={`/admin/edit/${e.id}`} className='article_box_edition_title--edit' href="">Editar</Link>
                                         
-                                        <label className="article_box_edition_title--destaque"  htmlFor={`swith${index}`}>
+                                        <label className="article_box_edition_title--destaque" htmlFor={`swith${index}`}>
                                             Destaque: 
                                             <div className='switch' > 
-                                            <input id={`swith${index}`} type="checkbox" onChange={(element) => {
+                                            <input id={`swith${index}`} type="checkbox" checked={articles.destaque} onChange={(element) => {
                                                 editDestaque(e.id, element.target.checked)
                                             }} />
                                             <span className='slider'></span>
