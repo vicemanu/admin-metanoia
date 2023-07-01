@@ -4,8 +4,9 @@ import { auth, db } from '../../firebase'
 import { useState } from 'react';
 import { collection, doc,  getDocs, updateDoc } from 'firebase/firestore';
 import { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Pesquisa from '../../components/Pesquisa';
+import Artigo from './Artigo';
 
 
 
@@ -52,10 +53,10 @@ export default function Admin() {
         buscarArtigos()
     },[])
 
-    console.log(articles)
 
+    
     async function editDestaque(id, destaque) {
-            
+                
             const postRef = doc( db, "artigo", id)
             await updateDoc(postRef, {
                 destaque: destaque
@@ -66,10 +67,10 @@ export default function Admin() {
             .catch((e)=> {
                 console.log(e)
             })
-          }
- 
-          
-    
+        }
+
+        
+
 
     async function editRemove(id, remove) {
         const postRef = doc( db, "artigo", id)
@@ -94,40 +95,13 @@ export default function Admin() {
             <h1>Artigos</h1>
             <div className='admin_page--main'>
                     <section className='page_main--articles'>
+                        
                         {articles?.map((e, index)=> {
-                            return(
-                                <div className='article_box_edition' key={e.id}>
-                                    <img className='article_box_edition--img' src={e.img} alt="" />
-                                    <div className='article_box_edition--box_title' >
-                                        <h3 >{e.title}</h3>
-                                        <p>{e.date}</p> 
-                                        
-                                        <Link to={`/admin/edit/${e.id}`} className='article_box_edition_title--edit' href="">Editar</Link>
-                                        
-                                        <label className="article_box_edition_title--destaque" htmlFor={`swith${index}`}>
-                                            Destaque: 
-                                            <div className='switch' > 
-                                            <input id={`swith${index}`} type="checkbox" checked={articles.destaque} onChange={(element) => {
-                                                editDestaque(e.id, element.target.checked)
-                                            }} />
-                                            <span className='slider'></span>
-                                        </div>
-                                        </label>
-                                        <label className="article_box_edition_title--remove"  htmlFor={`remove${index}`}>
-                                        Delete: 
-                                        <div className='switch' > 
-                                            <input id={`remove${index}`} type="checkbox" onChange={(element) => {
-                                                editRemove(e.id, element.target.checked)
-                                            }} />
-                                            <span className='slider'></span>
-                                        </div>
-                                        </label>    
-                                        
-                                    </div>
-
-                                </div>
-                            )
+                                return(
+                                    <Artigo key={index} data={e} index={index} editDestaque={editDestaque} editRemove={editRemove}/>
+                                )
                         })}
+                        
                     </section>
                     <aside className='page_main--options'>
                         <Pesquisa/>
