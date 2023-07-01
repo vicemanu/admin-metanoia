@@ -130,12 +130,12 @@ export default function Conteudo(props) {
 
 
             <h2>Paragrafos 
-                <button >
+                <button onClick={addParagraph} >
                     <i className="bi bi-plus-circle"></i>
                 </button>
             </h2>
             <div className='conteudo--div'>
-                {/* {
+                {
                     props.conteudo[props.index].paragraph.map((e, index) => {
                         return(
                             <label key={index} className='conteudo_div--paragrafo' htmlFor={`paragraph${index}`}>
@@ -144,13 +144,13 @@ export default function Conteudo(props) {
                                     name="" 
                                     id={`paragraph${index}`} 
                                     cols="30" rows="10"
-                                    value={props.dados.paragraph[index]}
+                                    value={props.conteudo[props.index].paragraph[index]}
                                     onChange={e => {handleChangeParagraph(e, index)}}
                                 ></textarea>
                             </label>  
                         )      
                     })
-                } */}
+                }
             </div> 
 
                                  
