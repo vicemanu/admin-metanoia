@@ -10,6 +10,13 @@
     font-family: sans-serif;
     border-radius: 10px;
     padding-bottom: 20px;
+    position: relative;
+    
+}
+.conteudo--remove {
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
 
 

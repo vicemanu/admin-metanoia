@@ -89,6 +89,17 @@ export default function NewAticle() {
         
     }
 
+    function removeConteudo(e, ind) {
+        e.preventDefault()
+        let filtrado = conteudo.filter((e, index)=> {
+           if( index !== ind ) {
+            return e;
+           }
+        })
+        setConteudo([...filtrado])
+    }
+    
+
     console.log(artigo)
 
     return(
@@ -171,7 +182,7 @@ export default function NewAticle() {
                     {
                         conteudo.map((e , index ) => {
                             return (
-                                <Conteudo key={index} index={index} dados={e} conteudo={conteudo} setConteudo={setConteudo} artigo={artigo} setArtigo={setArtigo}/>
+                                <Conteudo key={index} index={index} dados={e} conteudo={conteudo} setConteudo={setConteudo} artigo={artigo} setArtigo={setArtigo} removeConteudo={removeConteudo}/>
                             )
                         })
                     }

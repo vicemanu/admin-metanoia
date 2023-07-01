@@ -47,9 +47,11 @@ export default function Conteudo(props) {
     }
 
 
+
     return(
 
         <div className='conteudo'>
+            <button onClick={ (e) => props.removeConteudo(e , props.index )} className='conteudo--remove'>Delete</button>
 
             {/* Titulo do componente de conteudo */}
             
