@@ -37,10 +37,34 @@ export default function Admin() {
                     let listaFilter = lista.filter((e)=> {
                         return e.title.toLowerCase().includes(slug.toLowerCase())
                       })
-                      setArticles(listaFilter)
+                      let listaFilterSorted = listaFilter.sort((a, b) => {
+                        const nameA = a.title.toLowerCase();
+                        const nameB = b.title.toLowerCase();
+
+                        if (nameA < nameB) {
+                            return -1;
+                          }
+                          if (nameA > nameB) {
+                            return 1;
+                          }
+                          return 0;
+                      })
+                      setArticles(listaFilterSorted)
 
                 } else {
-                    setArticles(lista)
+                    let listaSorted = lista.sort((a, b) => {
+                        const nameA = a.title.toLowerCase();
+                        const nameB = b.title.toLowerCase();
+
+                        if (nameA < nameB) {
+                            return -1;
+                          }
+                          if (nameA > nameB) {
+                            return 1;
+                          }
+                          return 0;
+                    })
+                    setArticles(listaSorted)
                 }
                 
     
@@ -97,6 +121,21 @@ export default function Admin() {
                     <section className='page_main--articles'>
                         
                         {articles?.map((e, index)=> {
+                            if(e.destaque) 
+                                return(
+                                    <Artigo key={index} data={e} index={index} editDestaque={editDestaque} editRemove={editRemove}/>
+                                )
+                        })}
+
+                    {articles?.map((e, index)=> {
+                            if(!e.destaque & !e.remove) 
+                                return(
+                                    <Artigo key={index} data={e} index={index} editDestaque={editDestaque} editRemove={editRemove}/>
+                                )
+                        })}
+
+                    {articles?.map((e, index)=> {
+                            if(e.remove & !e.destaque ) 
                                 return(
                                     <Artigo key={index} data={e} index={index} editDestaque={editDestaque} editRemove={editRemove}/>
                                 )
