@@ -94,12 +94,12 @@ export default function Conteudo(props) {
             {/* Citações e todo o sitema de citações */}
 
             <h2>Citações 
-                <button >
+                <button onClick={addCitation} >
                     <i className="bi bi-plus-circle"></i>
                 </button>
             </h2>
             <div className='conteudo--div'>
-                {/* {
+                {
                     props.conteudo[props.index].citation.map((e, index)=> {
                         return(
                             <label key={index} className='conteudo_div--citacao'  htmlFor={`citation${index}`}>
@@ -107,14 +107,14 @@ export default function Conteudo(props) {
                                 <textarea  name="" 
                                     id={`citation${index}`} 
                                     cols="30" rows="10"
-                                    value={props.dados.citation[index]}
+                                    value={props.conteudo[props.index].citation[index]}
                                     onChange={e => {
                                         handleChangeCitation(e, index)
                                     }}
                                 ></textarea>
                                 <label>Autor: 
                                     <input type="text"
-                                        value={props.dados.author[index]}
+                                        value={props.conteudo[props.index].author[index]}
                                         onChange={e => {
                                             handleChangeAutor(e, index)
                                         }}
@@ -123,7 +123,7 @@ export default function Conteudo(props) {
                             </label> 
                         )
                     })
-                } */}
+                }
             </div>
 
             {/* Paragrafos de conteudo */}
