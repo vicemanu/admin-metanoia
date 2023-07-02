@@ -3,14 +3,13 @@ import { useState } from 'react'
 import Conteudo from '../../components/Conteudo'
 import { db, storage } from '../../firebase'
 import { addDoc, collection } from 'firebase/firestore'
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
+import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage'
 
 export default function NewAticle() {
 
     const [conteudo, setConteudo] = useState([{title:"", img: [""], citation: [""], paragraph: [""], 
     author: [""] }])
     const [artigo, setArtigo] = useState({ title: "", img: [""], description: "", date: "", conteudo: "",destaque: false, remove: false})
-    const [progressTotal, setProgressTotal] = useState(0)
 
     function addConteudo(e) {
         e.preventDefault()
@@ -18,53 +17,16 @@ export default function NewAticle() {
         author: [""] }])
     }
 
-    function enviarImagens() {
+    async function enviarStorage(e, index)  {
+        const uploadRefcont = ref(storage, `images/${props.artigo.title}/conteudo${props.index}`)
 
-        const uploadTaskCont = []
-        let valorIndex = 0
-        
-        const storageRefTitle = ref(storage, `images/${artigo.img.name}`)
-        uploadTaskCont.push(uploadBytesResumable(storageRefTitle, artigo.img)) 
-
-        uploadTaskCont[valorIndex].on(
-            "state_changed",
-            () => {
-                getDownloadURL(uploadTaskCont[0].snapshot.ref).then(url => {
-                    setArtigo({...artigo, img: url})
-
-                })
-            }
-   
-        )
-
-
-        conteudo.map((e, index1)=> {
-            e.img.map((elemt, index2)=> {
-
-                valorIndex ++
-
-                const storageRefCont = ref(storage, `images/${elemt.name}`)
-                uploadTaskCont.push(uploadBytesResumable(storageRefCont, elemt)) 
-
-                uploadTaskCont[valorIndex].on( 
-                    "state_changed",
-                    () => {
-                        getDownloadURL(uploadTaskCont[valorIndex].snapshot.ref).then(url => {
-                            conteudo[index1].img[index2] = url
-                            setConteudo([...conteudo])
-                        })
-                    }
-           
-                )
-            })
-            Promise.all(uploadTaskCont)
-            .then(()=> {
-                setProgressTotal(100)
-            })
-            .catch((error=> {
-                console.log(error)
-            }))
-        
+        const uploadTask = uploadBytes(uploadRefcont, props.conteudo[props.index].img)
+        .then((snapshot)=> {
+            getDownloadURL(snapshot.ref).then(async (downloadURL) => {
+                props.conteudo[props.index].img = downloadURL
+                props.setConteudo([...props.conteudo])
+                window.alert('foi')
+            }) 
         })
     }
 
@@ -72,20 +34,33 @@ export default function NewAticle() {
     async function eviarFireBase(e) {
         e.preventDefault()
 
-        await addDoc(collection(db, "artigo"), {
-            title: artigo.title,
-            img: artigo.img,
-            description: artigo.description,
-            date: artigo.date,
-            conteudo: conteudo,
-        }).then(()=> {
-            setArtigo({ title: "", img: "", description: "", date: "", conteudo: ""})
-            setConteudo([{title:"", img: [""], citation: [""], paragraph: [""], 
-            author: [""] }])
-            setProgressTotal(true)
-        }).catch((error)=> {
-            console.log(error)
-        })
+        const uploadRef = ref(storage, `images/${artigo.title}/${artigo.img.name}`)
+        const uploadTask = uploadBytes(uploadRef, artigo.img)
+        .then((snapshot)=> {
+            getDownloadURL(snapshot.ref).then(async (downloadURL) => {
+                let urlFoto = downloadURL
+                setArtigo({...artigo, img: urlFoto})
+            }) 
+        }).then(
+                async ()=> {
+                     await addDoc(collection(db, "artigo"), {
+                         title: artigo.title,
+                         img: artigo.img,
+                         description: artigo.description,
+                         date: artigo.date,
+                         conteudo: conteudo,
+                     }).then(()=> {
+                         setArtigo({ title: "", img: "", description: "", date: "", conteudo: ""})
+                         setConteudo([{title:"", img: [""], citation: [""], paragraph: [""], 
+                         author: [""] }])
+                     }).catch((error)=> {
+                         console.log(error)
+                     })
+                 }
+             )
+
+             
+        
         
     }
 
@@ -99,9 +74,6 @@ export default function NewAticle() {
         setConteudo([...filtrado])
     }
     
-
-    console.log(artigo)
-
     return(
         <section className='newarticle'>
             <form action="" onSubmit={eviarFireBase} className='main--form'>
@@ -182,13 +154,13 @@ export default function NewAticle() {
                     {
                         conteudo.map((e , index ) => {
                             return (
-                                <Conteudo key={index} index={index} dados={e} conteudo={conteudo} setConteudo={setConteudo} artigo={artigo} setArtigo={setArtigo} removeConteudo={removeConteudo}/>
+                                <Conteudo key={index} index={index} dados={e} conteudo={conteudo} setConteudo={setConteudo} enviarStorage={enviarStorage} artigo={artigo} setArtigo={setArtigo} removeConteudo={removeConteudo} />
                             )
                         })
                     }
 
                     <button onClick={addConteudo}>Add conteduo extra</button>
-                    <button onClick={enviarImagens} type='button'> Upload Imagens</button>
+                    {/* <button onClick={enviarImagens} type='button'> Upload Imagens</button> */}
                     <button  type="submit">Enviar</button>
                     
                 </form>

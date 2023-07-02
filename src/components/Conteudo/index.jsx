@@ -1,12 +1,17 @@
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import './conteudo.css'
+import { storage } from '../../firebase'
 
 export default function Conteudo(props) {
 
 
     function addImg(e) {
         e.preventDefault()
-        props.conteudo[props.index].img = [...props.conteudo[props.index].img, ""]
-        props.setConteudo([...props.conteudo])
+        if(props.conteudo[props.index].img.length < 1) {
+            props.conteudo[props.index].img = [...props.conteudo[props.index].img, ""]
+            props.setConteudo([...props.conteudo])
+        }
+
     }
 
     function removImg(e , position) {
@@ -79,6 +84,7 @@ export default function Conteudo(props) {
 
 
 
+
     return(
 
         <div className='conteudo'>
@@ -121,6 +127,9 @@ export default function Conteudo(props) {
                                     }}
                                 />
                                 <button onClick={(e) => removImg(e, index)}>
+                                    <i className="bi bi-plus-circle"></i>
+                                </button>
+                                <button onClick={(e) => props.enviarStorage(e, index)}>
                                     <i className="bi bi-plus-circle"></i>
                                 </button>
                             </label>
