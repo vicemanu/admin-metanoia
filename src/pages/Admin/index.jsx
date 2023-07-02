@@ -86,7 +86,11 @@ export default function Admin() {
                 destaque: destaque
             })
             .then((snapshot)=> {
-                window.alert('conteudo editado')
+                if(destaque) {
+                    window.alert('conteudo destacado')
+                } else {
+                    window.alert('destaque retirado')
+                }
             })
             .catch((e)=> {
                 console.log(e)
@@ -102,12 +106,19 @@ export default function Admin() {
                 remove: remove
             })
             .then((snapshot)=> {
-                window.alert('conteudo editado')
+                if(remove) {
+                    window.alert('conteudo removido')
+
+                } else {
+                    window.alert('remoção retirada')
+                }
             })
             .catch((e)=> {
                 console.log(e)
             })
     }
+
+
 
     async function headleLogout() {
         await signOut(auth);

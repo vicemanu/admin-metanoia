@@ -23,8 +23,8 @@ export default function Artigo(props) {
     }
 
     return(
-            <div className='article_box_edition' onClick={ele => deleteArtigo(e.id)} key={e.id}>
-                                        <button className="article_box_edition--delete">Delete</button>
+            <div className='article_box_edition' key={e.id}>
+                                        <button onClick={ele => deleteArtigo(e.id)} className="article_box_edition--delete">Delete</button>
 
                                         <img className='article_box_edition--img' src={e.img} alt="" />
                                         <div className='article_box_edition--box_title' >
