@@ -17,21 +17,7 @@ export default function NewAticle() {
         author: [""] }])
     }
 
-    async function enviarStorage(e, index)  {
-        const uploadRefcont = ref(storage, `images/${props.artigo.title}/conteudo${props.index}`)
-
-        const uploadTask = uploadBytes(uploadRefcont, props.conteudo[props.index].img)
-        .then((snapshot)=> {
-            getDownloadURL(snapshot.ref).then(async (downloadURL) => {
-                props.conteudo[props.index].img = downloadURL
-                props.setConteudo([...props.conteudo])
-                window.alert('foi')
-            }) 
-        })
-    }
-
-
-    async function eviarFireBase(e) {
+    async function adicionarImg(e)  {
         e.preventDefault()
 
         const uploadRef = ref(storage, `images/${artigo.title}/${artigo.img.name}`)
@@ -40,29 +26,29 @@ export default function NewAticle() {
             getDownloadURL(snapshot.ref).then(async (downloadURL) => {
                 let urlFoto = downloadURL
                 setArtigo({...artigo, img: urlFoto})
+                console.log(artigo)
             }) 
-        }).then(
-                async ()=> {
-                     await addDoc(collection(db, "artigo"), {
-                         title: artigo.title,
-                         img: artigo.img,
-                         description: artigo.description,
-                         date: artigo.date,
-                         conteudo: conteudo,
-                     }).then(()=> {
-                         setArtigo({ title: "", img: "", description: "", date: "", conteudo: ""})
-                         setConteudo([{title:"", img: [""], citation: [""], paragraph: [""], 
-                         author: [""] }])
-                     }).catch((error)=> {
-                         console.log(error)
-                     })
-                 }
-             )
-
-             
-        
-        
+        })
+            
     }
+
+    async function eviarFireBase(e)  {
+        e.preventDefault()
+        await addDoc(collection(db, "artigo"), {
+            title: artigo.title,
+            img: artigo.img[0],
+            description: artigo.description,
+            date: artigo.date,
+            conteudo: conteudo,
+        }).then(()=> {
+            setArtigo({ title: "", img: "", description: "", date: "", conteudo: ""})
+            setConteudo([{title:"", img: [""], citation: [""], paragraph: [""], 
+            author: [""] }])
+        }).catch((error)=> {
+            console.log(error)
+        })
+    }
+
 
     function removeConteudo(e, ind) {
         e.preventDefault()
@@ -154,12 +140,13 @@ export default function NewAticle() {
                     {
                         conteudo.map((e , index ) => {
                             return (
-                                <Conteudo key={index} index={index} dados={e} conteudo={conteudo} setConteudo={setConteudo} enviarStorage={enviarStorage} artigo={artigo} setArtigo={setArtigo} removeConteudo={removeConteudo} />
+                                <Conteudo key={index} index={index} dados={e} conteudo={conteudo} setConteudo={setConteudo} artigo={artigo} setArtigo={setArtigo} removeConteudo={removeConteudo} />
                             )
                         })
                     }
 
                     <button onClick={addConteudo}>Add conteduo extra</button>
+                    <button onClick={adicionarImg}>addimg</button>
                     {/* <button onClick={enviarImagens} type='button'> Upload Imagens</button> */}
                     <button  type="submit">Enviar</button>
                     

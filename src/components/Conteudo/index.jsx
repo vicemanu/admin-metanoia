@@ -1,9 +1,11 @@
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
 import './conteudo.css'
 import { storage } from '../../firebase'
+import { useState } from 'react'
 
 export default function Conteudo(props) {
 
+    const [img, setImg] = useState([])
 
     function addImg(e) {
         e.preventDefault()
@@ -23,12 +25,12 @@ export default function Conteudo(props) {
         props.setConteudo([...props.conteudo]) 
     }
 
-    function handleChangeImg(e, index) {
-        let file = e.target?.files[0]
-        if(!file) return;
-        props.conteudo[props.index].img[index] = file
-        props.setConteudo([...props.conteudo])
-    }
+    // function handleChangeImg(e, index) {
+    //     let file = 
+    //     console.log(file)
+    //     // props.conteudo[props.index].img[index] = file
+    //     // props.setConteudo([...props.conteudo])
+    // }
 
     function addCitation(e) {
         e.preventDefault()
@@ -83,6 +85,23 @@ export default function Conteudo(props) {
     }
 
 
+    async function enviarStorage(e, index)  {
+        e.preventDefault()
+
+        const uploadRefcont = ref(storage, `images/${props.artigo.title}/conteudo${props.index + 1}`)
+        const uploadTask = uploadBytes(uploadRefcont, img.img)
+        .then((snapshot)=> {
+            getDownloadURL(snapshot.ref).then(async (downloadURL) => {
+                const file = downloadURL
+                props.conteudo[props.index].img = [file]
+                props.setConteudo([...props.conteudo])
+                window.alert('foi')
+                console.log(props.conteudo)
+            }) 
+        })
+    }
+
+
 
 
     return(
@@ -121,15 +140,16 @@ export default function Conteudo(props) {
                                 <input type="file" 
                                     name="" 
                                     id={`img${index}`}
-                                    value={props.dados.img[index].value}
+                                    value={img.name}
                                     onChange={e => {
-                                        handleChangeImg(e, index)
+                                        setImg({ img: e.target.files[0]})
+                                        // handleChangeImg(e, index)
                                     }}
                                 />
                                 <button onClick={(e) => removImg(e, index)}>
                                     <i className="bi bi-plus-circle"></i>
                                 </button>
-                                <button onClick={(e) => props.enviarStorage(e, index)}>
+                                <button onClick={(e) => enviarStorage(e, index)}>
                                     <i className="bi bi-plus-circle"></i>
                                 </button>
                             </label>
